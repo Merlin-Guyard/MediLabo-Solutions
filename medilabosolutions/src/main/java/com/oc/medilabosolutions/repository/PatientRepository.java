@@ -1,11 +1,13 @@
 package com.oc.medilabosolutions.repository;
 
 import com.oc.medilabosolutions.model.Patient;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class PatientRepository {
     List<Patient> patientList = new ArrayList<>();
 

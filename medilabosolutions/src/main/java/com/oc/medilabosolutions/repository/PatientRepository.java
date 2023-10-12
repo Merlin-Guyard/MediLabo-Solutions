@@ -4,6 +4,7 @@ import com.oc.medilabosolutions.model.Patient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PatientRepository {
     List<Patient> patientList = new ArrayList<>();
@@ -12,16 +13,16 @@ public class PatientRepository {
         patientList.add(patient);
     }
 
-    public Patient getPatientById(String id){
+    public Optional<Patient> getPatientById(String id){
         for (Patient patient : patientList) {
             if (patient.getId() != null && patient.getId().equals(id)) {
-                return patient;
+                return Optional.of(patient);
             }
         }
         return null;
     }
 
-    public List<Patient> getAllpatient(Patient patient){
+    public List<Patient> getAllPatient(){
         return  patientList;
     }
 }

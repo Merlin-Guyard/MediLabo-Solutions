@@ -5,7 +5,7 @@ import com.oc.medilabosolutions.model.Patient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class patientRepository {
+public class PatientRepository {
     List<Patient> patientList = new ArrayList<>();
 
     public void addPatient(Patient patient){

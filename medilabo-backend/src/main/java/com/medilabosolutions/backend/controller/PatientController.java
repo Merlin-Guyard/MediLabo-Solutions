@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/backend")
 public class PatientController {
 
     private final PatientService patientService;

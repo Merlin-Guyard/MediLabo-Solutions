@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Spring Boot </title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+<body>
+
+<form th:action="@{/login}" method="post"
+      class="form">
+
+    <a>User:</a>
+    <div class="col-sm-2 control-label">
+        <input type="username"
+               name="username"
+               class="form-control"
+               id="username"
+               placeholder="Username">
+    </div>
+
+    <a>Password:</a>
+    <div class="col-sm-2 control-label">
+        <input type="password"
+               name="password"
+               class="form-control"
+               id="password"
+               placeholder="Password">
+    </div>
+
+    <div class="row">
+        <p class="text-light">-</p>
+    </div>
+
+    <div class="col-sm-12">
+        <button type="submit"
+                class="btn btn-primary"
+                id="BLogin">
+            Login
+        </button>
+    </div>
+</form>
+
+
+</body>
+</html>

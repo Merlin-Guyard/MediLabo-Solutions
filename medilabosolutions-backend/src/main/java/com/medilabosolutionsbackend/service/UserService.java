@@ -23,12 +23,12 @@ public class UserService {
         userRepository.addUser(user);
     }
 
-    public User getUserById(String id) {
-        Optional<User> oUser = userRepository.getUserById(id);
+    public User getUserByUsername(String username) {
+        Optional<User> oUser = userRepository.getUserByUsername(username);
         if (oUser.isPresent()) {
-            Logger.info("User with id : ", id, " found");
+            Logger.info("User with username : ", username, " found");
         } else {
-            Logger.info("User with id : ", id, " not found");
+            Logger.info("User with username : ", username, " not found");
         }
         return oUser.get();
     }

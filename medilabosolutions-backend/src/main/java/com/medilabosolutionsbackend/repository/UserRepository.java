@@ -15,9 +15,9 @@ public class UserRepository {
             userList.add(user);
         }
 
-        public Optional<User> getUserById(String id) {
+        public Optional<User> getUserByUsername(String username) {
             for (User user : userList) {
-                if (user.getId().equals(id)) {
+                if (user.getUsername().equals(username)) {
                     return Optional.of(user);
                 }
             }

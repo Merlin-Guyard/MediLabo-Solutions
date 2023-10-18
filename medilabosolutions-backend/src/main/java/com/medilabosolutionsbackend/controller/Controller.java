@@ -99,8 +99,8 @@ public class Controller {
     }
 
     @RequestMapping("/getUser")
-    public ResponseEntity<User> getUser(String id) {
-        User user = userService.getUserById(id);
+    public ResponseEntity<User> getUser(String username) {
+        User user = userService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }
 }

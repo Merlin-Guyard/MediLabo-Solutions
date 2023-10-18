@@ -13,7 +13,8 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String firstName, String lastName, String birthdate, String gender, String postalAddress, String phoneNumber) {
+    public Patient(String id, String firstName, String lastName, String birthdate, String gender, String postalAddress, String phoneNumber) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;

@@ -1,24 +1,27 @@
 package com.medilabosolutionsbackend.controller;
 
 import com.medilabosolutionsbackend.model.Patient;
+import com.medilabosolutionsbackend.model.User;
 import com.medilabosolutionsbackend.service.PatientService;
+import com.medilabosolutionsbackend.service.UserService;
 import org.pmw.tinylog.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@org.springframework.stereotype.Controller
 @RequestMapping("/backend")
-public class PatientController {
+public class Controller {
 
     private final PatientService patientService;
 
-    public PatientController(PatientService patientService) {
+    private final UserService userService;
+
+    public Controller(PatientService patientService, UserService userService) {
         this.patientService = patientService;
+        this.userService = userService;
     }
 
     @RequestMapping("/")
@@ -30,6 +33,7 @@ public class PatientController {
     @RequestMapping("/test")
     public ResponseEntity<String> addPatients() {
         Patient patient1 = new Patient(
+                "1",
                 "TestNone",
                 "Test",
                 "1966-12-31",
@@ -39,6 +43,7 @@ public class PatientController {
         );
 
         Patient patient2 = new Patient(
+                "2",
                 "TestBorderline",
                 "Test",
                 "1945-06-24",
@@ -48,6 +53,7 @@ public class PatientController {
         );
 
         Patient patient3 = new Patient(
+                "3",
                 "TestInDanger",
                 "Test",
                 "2004-06-18",
@@ -57,6 +63,7 @@ public class PatientController {
         );
 
         Patient patient4 = new Patient(
+                "4",
                 "TestEarlyOnset",
                 "Test",
                 "2002-06-28",
@@ -65,20 +72,35 @@ public class PatientController {
                 "400-555-6666"
         );
 
+        User user = new User(
+                "1",
+                "doctor",
+                "mdp",
+                "USER"
+        );
+
+
+        userService.addUser(user);
         patientService.addPatient(patient1);
         patientService.addPatient(patient2);
         patientService.addPatient(patient3);
         patientService.addPatient(patient4);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Patients added successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Patients and user added successfully");
     }
 
-    @RequestMapping("/get")
+    @RequestMapping("/getPatients")
     public ResponseEntity<List<Patient>> getAllPatient() {
         List<Patient> patients = patientService.getAllPatient();
         if (patients.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(patients);
+    }
+
+    @RequestMapping("/getUser")
+    public ResponseEntity<User> getUser(String id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 }

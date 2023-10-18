@@ -3,6 +3,8 @@ package com.medilabosolutionsbackend.controller;
 import com.medilabosolutionsbackend.model.Patient;
 import com.medilabosolutionsbackend.service.PatientService;
 import org.pmw.tinylog.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +21,13 @@ public class PatientController {
     }
 
     @RequestMapping("/")
-    public String index() {
+    public ResponseEntity<String> index() {
         Logger.info("Request Index");
-        return "Application online !";
+        return ResponseEntity.ok("Application online !");
     }
 
     @RequestMapping("/test")
-    public void addPatients() {
+    public ResponseEntity<String> addPatients() {
         Patient patient1 = new Patient(
                 "TestNone",
                 "Test",
@@ -66,10 +68,16 @@ public class PatientController {
         patientService.addPatient(patient2);
         patientService.addPatient(patient3);
         patientService.addPatient(patient4);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Patients added successfully");
     }
 
     @RequestMapping("/get")
-    public List<Patient> getPatient() {
-        return patientService.getAllPatient();
+    public ResponseEntity<List<Patient>> getAllPatient() {
+        List<Patient> patients = patientService.getAllPatient();
+        if (patients.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(patients);
     }
 }

@@ -24,9 +24,9 @@ public class PatientService {
     public Patient getPatientById(String id){
         Optional<Patient> oPatient = patientRepository.getPatientById(id);
         if (oPatient.isPresent()) {
-            Logger.info("Patient with id : ", id, " found");
+            Logger.info("Patient with id : " + id + " found");
         } else {
-            Logger.info("Patient with id : ", id, " not found");
+            Logger.info("Patient with id : " + id + " not found");
         }
         return oPatient.get();
     }

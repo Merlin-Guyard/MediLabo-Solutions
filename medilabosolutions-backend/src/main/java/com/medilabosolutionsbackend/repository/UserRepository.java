@@ -19,6 +19,7 @@ public class UserRepository {
             return userList;
         }
 
+
     public Optional<User> getUserByUsername(String username) {
         for (User user : userList) {
             if (user.getUsername().equals(username)) {

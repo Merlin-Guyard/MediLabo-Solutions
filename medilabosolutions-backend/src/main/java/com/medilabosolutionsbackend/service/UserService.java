@@ -29,7 +29,6 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-
         Optional<User> oUser = userRepository.getUserByUsername(username);
         if (oUser.isPresent()) {
             Logger.info("User with username : " + username + " found");
@@ -37,5 +36,6 @@ public class UserService {
             Logger.info("User with username : " + username + " not found");
         }
         return oUser.get();
+
     }
 }

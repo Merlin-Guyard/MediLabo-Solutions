@@ -28,25 +28,24 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
+        return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/css/**", "/images/**").permitAll()
-                        .requestMatchers("/home").hasAnyRole("USER")
+                        .requestMatchers("/frontend/login").permitAll()
+                        .requestMatchers("/frontend/home").hasAnyRole("USER")
                         .anyRequest().authenticated()
-                );
+                )
 
-        http
                 .formLogin((form) -> form
-                        .loginPage("/login")
+                        .loginPage("/frontend/login")
                         .permitAll()
-                        .defaultSuccessUrl("/home"))
-                .userDetailsService(customUserDetailsService);
+                        .defaultSuccessUrl("/frontend/home"))
 
-        http
+                .userDetailsService(customUserDetailsService)
+
                 .logout((logout) -> logout
-                        .logoutUrl("/my/logout/uri"));
+                        .logoutUrl("/login"))
 
-        return http.build();
+                .build();
     }
 
 }

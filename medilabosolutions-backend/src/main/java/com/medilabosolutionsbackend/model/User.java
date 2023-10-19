@@ -1,24 +1,39 @@
 package com.medilabosolutionsbackend.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
     private String role;
 
-    public User(String id, String username, String password, String role) {
-        this.id = id;
+    public User() {
+    }
+
+    public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

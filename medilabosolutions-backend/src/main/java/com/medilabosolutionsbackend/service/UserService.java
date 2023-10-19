@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -20,16 +19,16 @@ public class UserService {
     }
 
     public void addUser(User user) {
-        userRepository.addUser(user);
+        userRepository.save(user);
     }
 
 
     public List<User> getAllUser() {
-        return userRepository.getAllUser();
+        return userRepository.findAll();
     }
 
     public User getUserByUsername(String username) {
-        Optional<User> oUser = userRepository.getUserByUsername(username);
+        Optional<User> oUser = userRepository.findByUsername(username);
         if (oUser.isPresent()) {
             Logger.info("User with username : " + username + " found");
         } else {

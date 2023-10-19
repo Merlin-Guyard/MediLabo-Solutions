@@ -1,20 +1,38 @@
 package com.medilabosolutionsbackend.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "patients")
 public class Patient {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "firstName")
     private String firstName;
+
+    @Column(name = "lastName")
     private String lastName;
+
+    @Column(name = "birthdate")
     private String birthdate;
+
+    @Column(name = "gender")
     private String gender;
+
+    @Column(name = "postalAddress")
     private String postalAddress;
+
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     public Patient() {
     }
 
-    public Patient(String id, String firstName, String lastName, String birthdate, String gender, String postalAddress, String phoneNumber) {
-        this.id = id;
+    public Patient(String firstName, String lastName, String birthdate, String gender, String postalAddress, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -23,11 +41,11 @@ public class Patient {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

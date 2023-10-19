@@ -11,8 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/frontend")
 public class PageController {
 
+    @Autowired
+    private final ProxyService proxyService;
+
+    public PageController(ProxyService proxyService) {
+        this.proxyService = proxyService;
+    }
+
     @GetMapping("/login")
     public String loginPage() {
         return "login";
+    }
+
+    @RequestMapping("/getUser")
+    public void getUser() {
+        proxyService.getUsers("doctor");
     }
 }

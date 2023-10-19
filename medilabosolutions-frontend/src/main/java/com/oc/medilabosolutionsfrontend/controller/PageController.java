@@ -23,6 +23,11 @@ public class PageController {
         return "login";
     }
 
+    @GetMapping("/home")
+    public String homePage() {
+        return "home";
+    }
+
     @RequestMapping("/getUser")
     public void getUser() {
         proxyService.getUsers("doctor");

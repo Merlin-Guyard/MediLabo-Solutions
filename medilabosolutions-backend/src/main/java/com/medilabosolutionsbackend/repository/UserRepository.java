@@ -15,15 +15,16 @@ public class UserRepository {
             userList.add(user);
         }
 
-        public Optional<User> getUserByUsername(String username) {
-            for (User user : userList) {
-                if (user.getUsername().equals(username)) {
-                    return Optional.of(user);
-                }
-            }
-            return Optional.empty();
-        }
         public List<User> getAllUser() {
             return userList;
         }
+
+    public Optional<User> getUserByUsername(String username) {
+        for (User user : userList) {
+            if (user.getUsername().equals(username)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
+}

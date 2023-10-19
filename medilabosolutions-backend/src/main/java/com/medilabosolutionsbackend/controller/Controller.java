@@ -77,7 +77,7 @@ public class Controller {
         User user = new User(
                 "1",
                 "doctor",
-                "mdp",
+                "$2a$12$4QcuFdTDacNvNOf4gP5KTOEpQZA3A09XK0L3A0rgCNGLMZVPdBt4y",
                 "USER"
         );
 

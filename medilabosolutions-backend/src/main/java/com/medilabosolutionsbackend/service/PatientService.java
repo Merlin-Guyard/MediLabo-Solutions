@@ -3,6 +3,7 @@ package com.medilabosolutionsbackend.service;
 import com.medilabosolutionsbackend.model.Patient;
 import com.medilabosolutionsbackend.repository.PatientRepository;
 import org.pmw.tinylog.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,18 +12,21 @@ import java.util.Optional;
 @Service
 public class PatientService {
 
-    private final PatientRepository patientRepository;
+    @Autowired
+    PatientRepository patientRepository;
 
-    public PatientService(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
-    }
+//    private final PatientRepository patientRepository;
+//
+//    public PatientService(PatientRepository patientRepository) {
+//        this.patientRepository = patientRepository;
+//    }
 
     public void addPatient(Patient patient){
-        patientRepository.addPatient(patient);
+        patientRepository.save(patient);
     }
 
-    public Patient getPatientById(String id){
-        Optional<Patient> oPatient = patientRepository.getPatientById(id);
+    public Patient getPatientById(int id){
+        Optional<Patient> oPatient = patientRepository.findById(id);
         if (oPatient.isPresent()) {
             Logger.info("Patient with id : " + id + " found");
         } else {
@@ -32,6 +36,6 @@ public class PatientService {
     }
 
     public List<Patient> getAllPatient() {
-        return patientRepository.getAllPatient();
+        return patientRepository.findAll();
     }
 }

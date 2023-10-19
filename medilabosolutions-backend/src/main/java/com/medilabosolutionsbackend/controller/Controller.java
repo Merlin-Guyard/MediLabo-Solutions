@@ -35,7 +35,6 @@ public class Controller {
     @RequestMapping("/test")
     public ResponseEntity<String> addPatients() {
         Patient patient1 = new Patient(
-                "1",
                 "TestNone",
                 "Test",
                 "1966-12-31",
@@ -45,7 +44,6 @@ public class Controller {
         );
 
         Patient patient2 = new Patient(
-                "2",
                 "TestBorderline",
                 "Test",
                 "1945-06-24",
@@ -55,7 +53,6 @@ public class Controller {
         );
 
         Patient patient3 = new Patient(
-                "3",
                 "TestInDanger",
                 "Test",
                 "2004-06-18",
@@ -65,7 +62,6 @@ public class Controller {
         );
 
         Patient patient4 = new Patient(
-                "4",
                 "TestEarlyOnset",
                 "Test",
                 "2002-06-28",
@@ -75,7 +71,6 @@ public class Controller {
         );
 
         User user = new User(
-                "1",
                 "doctor",
                 "$2a$12$4QcuFdTDacNvNOf4gP5KTOEpQZA3A09XK0L3A0rgCNGLMZVPdBt4y",
                 "USER"

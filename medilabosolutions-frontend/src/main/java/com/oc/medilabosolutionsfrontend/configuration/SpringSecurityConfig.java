@@ -30,7 +30,7 @@ public class SpringSecurityConfig {
 
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/frontend/login").permitAll()
+                        .requestMatchers("/frontend/login","/frontend/home").permitAll()
                         .requestMatchers("/frontend/home").hasAnyRole("USER")
                         .anyRequest().authenticated()
                 )

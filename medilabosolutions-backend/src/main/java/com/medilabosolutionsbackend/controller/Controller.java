@@ -7,13 +7,13 @@ import com.medilabosolutionsbackend.service.UserService;
 import org.pmw.tinylog.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@org.springframework.stereotype.Controller
+@RestController
 @RequestMapping("/backend")
 public class Controller {
 

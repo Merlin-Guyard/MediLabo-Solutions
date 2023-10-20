@@ -4,19 +4,37 @@
 <head>
     <meta charset="utf-8"/>
     <title>Home</title>
-<!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
 </head>
 <body>
 <div class="container">
     <div class="container text-center">
         <div class="row">
 
-            <div class="col-6 text-right">
-                <label class="labels"><span th:text="'Current user : ' + ${name}"></span></label> <a href="#" th:href="@{/logout}">Log Out</a>
-            </div>
-
             <div class="col align-self-center">
                 Welcome on Medilabo Solutions !
+            </div>
+
+            <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Family Name</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="patient : ${patients}">
+                            <td th:text="${patient.firstName}"></td>
+                            <td th:text="${patient.lastName}"></td>
+<!--                            <td style="width: 15%" class="text-center">-->
+<!--                                <a th:href="">View</a>&nbsp;|&nbsp;-->
+<!--                                <a th:href="">Delete</a>-->
+<!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
 

@@ -29,8 +29,9 @@ public class PageController {
     }
 
     @GetMapping("/home")
-    public String home(@RequestParam(required = false) String role, Model model)
+    public String home(Model model)
     {
+        model.addAttribute("patients", proxyService.getAllPatient());
         model.addAttribute("role", schService.getRole());
         model.addAttribute("name", schService.getName());
 

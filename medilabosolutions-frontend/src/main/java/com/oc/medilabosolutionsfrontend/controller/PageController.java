@@ -25,10 +25,9 @@ public class PageController {
     }
 
     @PostMapping("/connect")
-    public String afficher(@ModelAttribute User user) {
+    public String connect(@ModelAttribute User user) {
         // Afficher les données de l'objet titi dans la console
-        System.out.println("Valeur de toto : " + user.getUsername());
-        System.out.println("Valeur de tata : " + user.getPassword());
+        proxyService.connect(user);
 
         return "redirect:/frontend/home"; // Redirige vers la page d'accueil
     }

@@ -1,4 +1,4 @@
-package com.oc.medilabosolutionsfrontend.Model;
+package com.oc.medilabosolutiongateway.model;
 
 public class User {
 

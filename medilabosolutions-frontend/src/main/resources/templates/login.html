@@ -7,39 +7,18 @@
 </head>
 <body>
 
-<form th:action="@{/frontend/login}" method="post"
-      class="form">
+<form action="/frontend/connect" method="post" th:object="${user}">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" th:field="*{username}"/>
 
-    <a>User:</a>
-    <div class="col-sm-2 control-label">
-        <input type="username"
-               name="username"
-               class="form-control"
-               id="username"
-               placeholder="Username">
-    </div>
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="password" th:field="*{password}"/>
 
-    <a>Password:</a>
-    <div class="col-sm-2 control-label">
-        <input type="password"
-               name="password"
-               class="form-control"
-               id="password"
-               placeholder="Password">
-    </div>
-
-    <div class="row">
-        <p class="text-light">-</p>
-    </div>
-
-    <div class="col-sm-12">
-        <button type="submit"
-                class="btn btn-primary"
-                id="BLogin">
-            Login
-        </button>
-    </div>
+    <button type="submit">Submit</button>
 </form>
+
+
+
 
 
 </body>

@@ -51,4 +51,16 @@ public class ProxyService {
             return null;
         }
     }
+
+    public void connect(User user) {
+        String url = "http://localhost:8080/gateway/connect";
+
+        ResponseEntity<Void> responseEntity = restTemplate.postForEntity(url, user, Void.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            System.out.println("Authentification réussie");
+        } else {
+            System.out.println("Échec de l'authentification.");
+        }
+    }
 }

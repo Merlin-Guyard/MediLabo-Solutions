@@ -76,4 +76,24 @@ public class PageController {
 
     }
 
+    @GetMapping("/addPatient")
+    public String showAddPatient(Model model) {
+
+        if(proxyService.verify()) {
+            model.addAttribute("patient", new Patient());
+            return "add";
+        }
+        return "redirect:/frontend/login";
+
+    }
+
+    @PostMapping("/addPatient")
+    public String addPatient(Patient patient, Model model) {
+        if(proxyService.verify()) {
+            proxyService.addPatient(patient);
+            return "redirect:/frontend/home";
+        }
+        return "redirect:/frontend/login";
+    }
+
 }

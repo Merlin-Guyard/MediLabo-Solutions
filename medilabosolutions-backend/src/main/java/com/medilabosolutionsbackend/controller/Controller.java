@@ -117,6 +117,15 @@ public class Controller {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Patient update failure");
         }
+    }
 
+    @RequestMapping("/addPatient")
+    public ResponseEntity<String> addPatient(@RequestBody Patient patient) {
+        try {
+            patientService.addPatient(patient);
+            return ResponseEntity.ok("Patient addition success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Patient addition failure");
+        }
     }
 }

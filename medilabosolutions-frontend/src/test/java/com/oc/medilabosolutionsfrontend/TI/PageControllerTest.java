@@ -7,7 +7,6 @@ import com.oc.medilabosolutionsfrontend.service.ProxyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,13 +14,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,12 +33,12 @@ public class PageControllerTest {
     @InjectMocks
     private PageController pageController;
 
-    @Mock
+    @Autowired
     private ProxyService proxyService;
 
     @BeforeEach
     public void initEach() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/frontend/deleteAll"));
+        proxyService.deleteALL();
     }
 
     @Test
@@ -48,7 +47,7 @@ public class PageControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/frontend/connect")
                         .param("username", "doctor")
                         .param("password", "mdp"))
-                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/home"));
     }
 
@@ -58,53 +57,73 @@ public class PageControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/frontend/connect")
                         .param("username", "doctor")
                         .param("password", "mauvaismdp"))
-                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/login"));
     }
 
     @Test
     public void AddViewTest() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/connect")
-                .param("username", "doctor")
-                .param("password", "mdp"));
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/addPatient"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("add"));
     }
 
     @Test
     void homeViewTest() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/connect")
-                .param("username", "doctor")
-                .param("password", "mdp"));
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/home"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("home"));
     }
 
     @Test
-    void testAddAndGetPatient() throws Exception {
+    void testAddPatient() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/connect")
-                .param("username", "doctor")
-                .param("password", "mdp"));
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/frontend/addPatient")
                         .param("firstName", "John")
                         .param("lastName", "Doe")
                         .param("birthdate", "1990-01-01")
-                        .param("gender", "Male")
+                        .param("gender", "M")
                         .param("postalAddress", "123 Main St")
                         .param("phoneNumber", "123-456-7890"))
-                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/home"));
 
+        List<Patient> patientList = proxyService.getAllPatient();
+
+        assertEquals(patientList.get(0).getFirstName(), "John");
+        assertEquals(patientList.get(0).getLastName(), "Doe");
+    }
+
+    @Test
+    void testGetPatient() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Patient patient = new Patient(
+                "John",
+                "Doe",
+                "1990-01-01",
+                "M",
+                "123 Main St",
+                "123-456-7890"
+        );
+
+        proxyService.addPatient(patient);
+
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/home"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("home"))
                 .andExpect(model().attributeExists("patients")).andExpect(result -> {
                     List<Patient> patientsInModel = (List<Patient>) result.getModelAndView().getModel().get("patients");
@@ -114,6 +133,33 @@ public class PageControllerTest {
                     assertThat(patientsInModel.get(0).getLastName()).isEqualTo("Doe");
                 });
     }
+
+    //TODO : error not found, found, empty list it goes in wrong if
+//    @Test
+//    void testDeletePatient() throws Exception {
+//
+//        User user = new User("doctor", "mdp");
+//        proxyService.login(user);
+//
+//        Patient patient = new Patient(
+//                "John",
+//                "Doe",
+//                "1990-01-01",
+//                "M",
+//                "123 Main St",
+//                "123-456-7890"
+//        );
+//
+//        proxyService.addPatient(patient);
+//        List<Patient> patientList = proxyService.getAllPatient();
+//
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/delete/" + patientList.get(0).getId()))
+//                .andExpect(status().isFound())
+//                .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
+//
+//        assertEquals(proxyService.getAllPatient().size(),0);
+//    }
 
 
 }

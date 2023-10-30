@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.DELETE;
@@ -69,7 +70,7 @@ public class ProxyService {
             return responseEntity.getBody();
         } else {
             Logger.info("Patients not found");
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
     }
 
@@ -134,19 +135,18 @@ public class ProxyService {
     }
 
     public void deleteALL() {
-        String url = "http://localhost:8080/backend/deleteAll";
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    "http://localhost:8080/backend/deleteAll",
+                    DELETE,
+                    null,
+                    String.class
+            );
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
-                url,
-                DELETE,
-                null,
-                String.class
-        );
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             Logger.info("Patient deletion success");
         } else {
             Logger.info("Patient deletion failure");
         }
-    }
+        }
 }

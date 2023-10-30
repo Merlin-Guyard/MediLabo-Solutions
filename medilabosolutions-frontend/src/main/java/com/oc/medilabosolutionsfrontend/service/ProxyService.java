@@ -6,6 +6,7 @@ import com.oc.medilabosolutionsfrontend.repository.UserRepository;
 import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -108,6 +109,18 @@ public class ProxyService {
         } else {
             Logger.info("Fetching patient failure");
             return null;
+        }
+    }
+
+    public boolean updatePatient(Integer id, Patient patient) {
+        String url = "http://localhost:8080/backend/updatePatient/" +id;
+
+        try {
+            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
+            return true;
+        } catch (Exception e){
+            System.out.println(e);
+            return false;
         }
     }
 }

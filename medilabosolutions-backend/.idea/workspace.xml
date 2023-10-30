@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/service/PatientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,13 +83,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java</url>
-          <line>37</line>
+          <line>34</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java</url>
-          <line>32</line>
+          <line>29</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

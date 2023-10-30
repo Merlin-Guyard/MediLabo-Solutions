@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.controller;
 
+import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.service.ProxyService;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class PageController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, Model model) {
+    public String deletePatient(@PathVariable("id") Integer id, Model model) {
 
         if(proxyService.verify()) {
             proxyService.deleteById(id);
@@ -54,11 +55,22 @@ public class PageController {
     }
 
     @GetMapping("/view/{id}")
-    public String viewUser(@PathVariable("id") Integer id, Model model) {
+    public String viewPatient(@PathVariable("id") Integer id, Model model) {
 
         if(proxyService.verify()) {
-            proxyService.getPatient(id);
-            return "/frontend/view";
+            model.addAttribute("patient", proxyService.getPatient(id));
+            return "view";
+        }
+        return "redirect:/frontend/login";
+
+    }
+
+    @PostMapping("/view/{id}")
+    public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
+
+        if(proxyService.verify()) {
+            proxyService.updatePatient(id, patient);
+            return "redirect:/frontend/view/"+id;
         }
         return "redirect:/frontend/login";
 

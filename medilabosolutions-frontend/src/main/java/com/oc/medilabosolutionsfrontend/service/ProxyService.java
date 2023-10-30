@@ -2,6 +2,7 @@ package com.oc.medilabosolutionsfrontend.service;
 
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
+import com.oc.medilabosolutionsfrontend.repository.UserRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -14,9 +15,12 @@ import java.util.List;
 @Service
 public class ProxyService {
 
+    private final UserRepository userRepository;
+
     private final RestTemplate restTemplate;
 
-    public ProxyService(RestTemplateBuilder restTemplateBuilder) {
+    public ProxyService(UserRepository userRepository, RestTemplateBuilder restTemplateBuilder) {
+        this.userRepository = userRepository;
         this.restTemplate = restTemplateBuilder.build();
     }
 
@@ -52,15 +56,27 @@ public class ProxyService {
         }
     }
 
-    public void login(User user) {
+    public boolean login(User user) {
         String url = "http://localhost:8080/login";
 
-        ResponseEntity<Void> responseEntity = restTemplate.postForEntity(url, user, Void.class);
+        try {
+            restTemplate.postForEntity(url, user, Void.class);
+            userRepository.changeUser(user);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            System.out.println("Authentification réussie");
-        } else {
-            System.out.println("Échec de l'authentification.");
+    public boolean verify() {
+        String url = "http://localhost:8080/login";
+
+        User user = userRepository.getUser();
+        try {
+            restTemplate.postForEntity(url, user, Void.class);
+            return true;
+        } catch (Exception e){
+            return false;
         }
     }
 }

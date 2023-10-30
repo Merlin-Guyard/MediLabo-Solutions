@@ -25,20 +25,21 @@ public class PageController {
 
     @PostMapping("/connect")
     public String connect(@ModelAttribute User user) {
-        proxyService.login(user);
 
-        return "redirect:/frontend/home"; // Redirige vers la page d'accueil
+        if(proxyService.login(user)) {
+            return "redirect:/frontend/home"; // Redirige vers la page d'accueil
+        }
+        return "redirect:/frontend/login";
     }
 
     @GetMapping("/home")
     public String home(Model model)
     {
         model.addAttribute("patients", proxyService.getAllPatient());
-        return "home";
-    }
 
-    @RequestMapping("/getUser")
-    public void getUser() {
-        proxyService.getUsers("doctor");
+        if (proxyService.verify()){
+            return "home";
+        }
+        return "redirect:/frontend/login";
     }
 }

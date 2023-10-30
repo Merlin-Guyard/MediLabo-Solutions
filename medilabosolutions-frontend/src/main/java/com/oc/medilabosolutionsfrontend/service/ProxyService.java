@@ -123,4 +123,16 @@ public class ProxyService {
             return false;
         }
     }
+
+    public boolean addPatient(Patient patient) {
+        String url = "http://localhost:8080/backend/addPatient";
+
+        try {
+            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
+            return true;
+        } catch (Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
 }

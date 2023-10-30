@@ -70,7 +70,7 @@ public class PageController {
 
         if(proxyService.verify()) {
             proxyService.updatePatient(id, patient);
-            return "redirect:/frontend/view/"+id;
+            return "redirect:/frontend/home";
         }
         return "redirect:/frontend/login";
 

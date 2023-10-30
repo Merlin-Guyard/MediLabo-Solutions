@@ -1,9 +1,7 @@
 package com.medilabosolutionsbackend.controller;
 
 import com.medilabosolutionsbackend.model.Patient;
-import com.medilabosolutionsbackend.model.User;
 import com.medilabosolutionsbackend.service.PatientService;
-import com.medilabosolutionsbackend.service.UserService;
 import org.pmw.tinylog.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +15,9 @@ public class Controller {
 
     private final PatientService patientService;
 
-    private final UserService userService;
 
-    public Controller(PatientService patientService, UserService userService) {
+    public Controller(PatientService patientService) {
         this.patientService = patientService;
-        this.userService = userService;
     }
 
     @RequestMapping("/")
@@ -68,14 +64,6 @@ public class Controller {
                 "400-555-6666"
         );
 
-        User user = new User(
-                "doctor",
-                "$2a$12$4QcuFdTDacNvNOf4gP5KTOEpQZA3A09XK0L3A0rgCNGLMZVPdBt4y",
-                "USER"
-        );
-
-
-        userService.addUser(user);
         patientService.addPatient(patient1);
         patientService.addPatient(patient2);
         patientService.addPatient(patient3);
@@ -126,6 +114,16 @@ public class Controller {
             return ResponseEntity.ok("Patient addition success");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Patient addition failure");
+        }
+    }
+
+    @RequestMapping("/deleteAll")
+    public ResponseEntity<String> deleteAll() {
+        try {
+            patientService.deleteAll();
+            return ResponseEntity.ok("Patients deletion success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Patients deletion failure");
         }
     }
 }

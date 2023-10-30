@@ -3,6 +3,8 @@ package com.oc.medilabosolutionsfrontend.controller;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.service.ProxyService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,18 +29,17 @@ public class PageController {
     @PostMapping("/connect")
     public String connect(@ModelAttribute User user) {
 
-        if(proxyService.login(user)) {
+        if (proxyService.login(user)) {
             return "redirect:/frontend/home"; // Redirige vers la page d'accueil
         }
         return "redirect:/frontend/login";
     }
 
     @GetMapping("/home")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         model.addAttribute("patients", proxyService.getAllPatient());
 
-        if (proxyService.verify()){
+        if (proxyService.verify()) {
             return "home";
         }
         return "redirect:/frontend/login";
@@ -47,7 +48,7 @@ public class PageController {
     @GetMapping("/delete/{id}")
     public String deletePatient(@PathVariable("id") Integer id, Model model) {
 
-        if(proxyService.verify()) {
+        if (proxyService.verify()) {
             proxyService.deleteById(id);
             return "redirect:/frontend/home";
         }
@@ -57,7 +58,7 @@ public class PageController {
     @GetMapping("/view/{id}")
     public String viewPatient(@PathVariable("id") Integer id, Model model) {
 
-        if(proxyService.verify()) {
+        if (proxyService.verify()) {
             model.addAttribute("patient", proxyService.getPatient(id));
             return "view";
         }
@@ -68,7 +69,7 @@ public class PageController {
     @PostMapping("/view/{id}")
     public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
 
-        if(proxyService.verify()) {
+        if (proxyService.verify()) {
             proxyService.updatePatient(id, patient);
             return "redirect:/frontend/home";
         }
@@ -79,7 +80,7 @@ public class PageController {
     @GetMapping("/addPatient")
     public String showAddPatient(Model model) {
 
-        if(proxyService.verify()) {
+        if (proxyService.verify()) {
             model.addAttribute("patient", new Patient());
             return "add";
         }
@@ -89,11 +90,16 @@ public class PageController {
 
     @PostMapping("/addPatient")
     public String addPatient(Patient patient, Model model) {
-        if(proxyService.verify()) {
+        if (proxyService.verify()) {
             proxyService.addPatient(patient);
             return "redirect:/frontend/home";
         }
         return "redirect:/frontend/login";
+    }
+
+    @RequestMapping("/deleteAll")
+    public void deleteAll() {
+        proxyService.deleteALL();
     }
 
 }

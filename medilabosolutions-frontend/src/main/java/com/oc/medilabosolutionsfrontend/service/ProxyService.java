@@ -2,37 +2,54 @@ package com.oc.medilabosolutionsfrontend.service;
 
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
+import com.oc.medilabosolutionsfrontend.repository.UserRepository;
+import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProxyService {
 
+    private final UserRepository userRepository;
+
     private final RestTemplate restTemplate;
 
-    public ProxyService(RestTemplateBuilder restTemplateBuilder) {
+    public ProxyService(UserRepository userRepository, RestTemplateBuilder restTemplateBuilder) {
+        this.userRepository = userRepository;
         this.restTemplate = restTemplateBuilder.build();
     }
+    public boolean login(User user) {
+        String url = "http://localhost:8080/login";
 
-    public User getUsers(String username) {
-        String url = "http://localhost:8080/backend/getUser?username=" + username;
-
-        ResponseEntity<User> responseEntity = restTemplate.getForEntity(url, User.class);
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
-        } else {
-//            return "Erreur lors de la requête HTTP.";
-            return null;
+        try {
+            restTemplate.postForEntity(url, user, Void.class);
+            userRepository.changeUser(user);
+            return true;
+        } catch (Exception e){
+            return false;
         }
     }
 
+    public boolean verify() {
+        String url = "http://localhost:8080/login";
+
+        User user = userRepository.getUser();
+        try {
+            restTemplate.postForEntity(url, user, Void.class);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
 
     public List<Patient> getAllPatient() {
         String url = "http://localhost:8080/backend/getPatients";
@@ -46,21 +63,64 @@ public class ProxyService {
         );
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Patients found");
             return responseEntity.getBody();
         } else {
+            Logger.info("Patients not found");
+            return new ArrayList<>();
+        }
+    }
+
+
+
+    public void getPatientById(Integer id) {
+    }
+
+    public void deleteById(Integer id) {
+        String url = "http://localhost:8080/backend/deletePatient/" + id;
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                String.class
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Patient deletion success");
+        } else {
+            Logger.info("Patient deletion failure");
+        }
+    }
+
+    public Patient getPatient(Integer id) {
+        String url = "http://localhost:8080/backend/getPatient/" + id;
+
+        ResponseEntity<Patient> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                Patient.class
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Fetching patient success");
+            return responseEntity.getBody();
+        } else {
+            Logger.info("Fetching patient failure");
             return null;
         }
     }
 
-    public void login(User user) {
-        String url = "http://localhost:8080/login";
+    public boolean updatePatient(Integer id, Patient patient) {
+        String url = "http://localhost:8080/backend/updatePatient/" +id;
 
-        ResponseEntity<Void> responseEntity = restTemplate.postForEntity(url, user, Void.class);
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            System.out.println("Authentification réussie");
-        } else {
-            System.out.println("Échec de l'authentification.");
+        try {
+            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
+            return true;
+        } catch (Exception e){
+            System.out.println(e);
+            return false;
         }
     }
 }

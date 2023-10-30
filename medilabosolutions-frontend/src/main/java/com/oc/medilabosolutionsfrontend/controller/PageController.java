@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.controller;
 
+import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.service.ProxyService;
 import org.springframework.stereotype.Controller;
@@ -25,20 +26,54 @@ public class PageController {
 
     @PostMapping("/connect")
     public String connect(@ModelAttribute User user) {
-        proxyService.login(user);
 
-        return "redirect:/frontend/home"; // Redirige vers la page d'accueil
+        if(proxyService.login(user)) {
+            return "redirect:/frontend/home"; // Redirige vers la page d'accueil
+        }
+        return "redirect:/frontend/login";
     }
 
     @GetMapping("/home")
     public String home(Model model)
     {
         model.addAttribute("patients", proxyService.getAllPatient());
-        return "home";
+
+        if (proxyService.verify()){
+            return "home";
+        }
+        return "redirect:/frontend/login";
     }
 
-    @RequestMapping("/getUser")
-    public void getUser() {
-        proxyService.getUsers("doctor");
+    @GetMapping("/delete/{id}")
+    public String deletePatient(@PathVariable("id") Integer id, Model model) {
+
+        if(proxyService.verify()) {
+            proxyService.deleteById(id);
+            return "redirect:/frontend/home";
+        }
+        return "redirect:/frontend/login";
     }
+
+    @GetMapping("/view/{id}")
+    public String viewPatient(@PathVariable("id") Integer id, Model model) {
+
+        if(proxyService.verify()) {
+            model.addAttribute("patient", proxyService.getPatient(id));
+            return "view";
+        }
+        return "redirect:/frontend/login";
+
+    }
+
+    @PostMapping("/view/{id}")
+    public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
+
+        if(proxyService.verify()) {
+            proxyService.updatePatient(id, patient);
+            return "redirect:/frontend/view/"+id;
+        }
+        return "redirect:/frontend/login";
+
+    }
+
 }

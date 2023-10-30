@@ -1,48 +1,64 @@
-//package com.oc.medilabosolutiongateway.configuration;
-//
-//import com.oc.medilabosolutiongateway.service.CustomUserDetailsService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.web.SecurityFilterChain;
-//
-//@Configuration
-//public class SpringSecurityConfig {
-//
-//    @Autowired
-//    private CustomUserDetailsService customUserDetailsService;
-//
-//    //Password Encoder
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    //Login Security configuration
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
-//        return http
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/frontend/login","/frontend/home").permitAll()
-//                        .requestMatchers("/frontend/home").hasAnyRole("USER")
-//                        .anyRequest().authenticated()
-//                )
-//
-//                .formLogin((form) -> form
-//                        .loginPage("/frontend/login")
-//                        .permitAll()
-//                        .defaultSuccessUrl("/frontend/home"))
-//
-//                .logout((logout) -> logout
-//                        .logoutUrl("/login"))
-//
-//                .userDetailsService(customUserDetailsService)
-//
-//                .build();
-//    }
-//
-//}
+package com.oc.medilabosolutiongateway.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+@Configuration
+@EnableWebFluxSecurity
+public class SpringSecurityConfig {
+
+
+    //Password Encoder
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    //Login Security configuration
+    @Bean
+    public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) throws Exception {
+
+        http
+                .csrf().disable()
+                .authorizeExchange()
+                .pathMatchers("/**").permitAll()
+                .anyExchange().authenticated()
+                .and()
+                .httpBasic(Customizer.withDefaults());
+
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+
+        UserDetails user = User.builder().username("doctor").password(passwordEncoder().encode("mdp")).roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+    // Authentication Manager
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+
+        return new ProviderManager(provider);
+    }
+
+
+}

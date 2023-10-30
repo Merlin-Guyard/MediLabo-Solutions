@@ -3,6 +3,7 @@ package com.oc.medilabosolutionsfrontend.service;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.repository.UserRepository;
+import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,39 +26,6 @@ public class ProxyService {
         this.userRepository = userRepository;
         this.restTemplate = restTemplateBuilder.build();
     }
-
-    public User getUsers(String username) {
-        String url = "http://localhost:8080/backend/getUser?username=" + username;
-
-        ResponseEntity<User> responseEntity = restTemplate.getForEntity(url, User.class);
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
-        } else {
-//            return "Erreur lors de la requête HTTP.";
-            return null;
-        }
-    }
-
-
-    public List<Patient> getAllPatient() {
-        String url = "http://localhost:8080/backend/getPatients";
-
-        ResponseEntity<List<Patient>> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Patient>>() {
-                }
-        );
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
-        } else {
-            return null;
-        }
-    }
-
     public boolean login(User user) {
         String url = "http://localhost:8080/login";
 
@@ -80,9 +50,45 @@ public class ProxyService {
         }
     }
 
-    public void deleteById(Integer id) {
+    public List<Patient> getAllPatient() {
+        String url = "http://localhost:8080/backend/getPatients";
+
+        ResponseEntity<List<Patient>> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Patient>>() {
+                }
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Patients found");
+            return responseEntity.getBody();
+        } else {
+            Logger.info("Patients not found");
+            return new ArrayList<>();
+        }
     }
 
-    public void getUser(Integer id) {
+
+
+    public void getPatientById(Integer id) {
+    }
+
+    public void deleteById(Integer id) {
+        String url = "http://localhost:8080/backend/deletePatient/" + id;
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.DELETE,
+                null,
+                String.class
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Patient deletion success");
+        } else {
+            Logger.info("Patient deletion failure");
+        }
     }
 }

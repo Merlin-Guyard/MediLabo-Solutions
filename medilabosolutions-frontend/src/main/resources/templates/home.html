@@ -28,8 +28,8 @@
                             <td th:text="${patient.firstName}"></td>
                             <td th:text="${patient.lastName}"></td>
                             <td style="width: 15%" class="text-center">
-                                <a th:href="@{/view/{id}(id=${patient.id})}">View</a>
-                                <a th:href="@{/delete/{id}(id=${patient.id})}">Delete</a>
+                                <a th:href="@{/frontend/view/{id}(id=${patient.id})}">View</a>
+                                <a th:href="@{/frontend/delete/{id}(id=${patient.id})}">Delete</a>
 
                             </td>
                         </tr>

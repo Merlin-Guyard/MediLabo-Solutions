@@ -15,12 +15,6 @@ public class PatientService {
     @Autowired
     PatientRepository patientRepository;
 
-//    private final PatientRepository patientRepository;
-//
-//    public PatientService(PatientRepository patientRepository) {
-//        this.patientRepository = patientRepository;
-//    }
-
     public void addPatient(Patient patient){
         patientRepository.save(patient);
     }
@@ -37,5 +31,9 @@ public class PatientService {
 
     public List<Patient> getAllPatient() {
         return patientRepository.findAll();
+    }
+
+    public void deleteById(Integer id) {
+        patientRepository.deleteById(id);
     }
 }

@@ -73,11 +73,6 @@ public class ProxyService {
         }
     }
 
-
-
-    public void getPatientById(Integer id) {
-    }
-
     public void deleteById(Integer id) {
         String url = "http://localhost:8080/backend/deletePatient/" + id;
 

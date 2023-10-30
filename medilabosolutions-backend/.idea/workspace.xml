@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/service/PatientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +77,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java</url>
-          <line>112</line>
+          <line>110</line>
           <properties class="com.medilabosolutionsbackend.controller.Controller" method="addPatient">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

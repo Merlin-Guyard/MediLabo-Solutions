@@ -20,12 +20,14 @@ public class PageController {
         this.proxyService = proxyService;
     }
 
+    //
     @GetMapping("/login")
     public String loginPage(Model model) {
         model.addAttribute("user", new User());
         return "login";
     }
 
+    //
     @PostMapping("/connect")
     public String connect(@ModelAttribute User user) {
 
@@ -35,6 +37,7 @@ public class PageController {
         return "redirect:/frontend/login";
     }
 
+    //
     @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("patients", proxyService.getAllPatient());
@@ -77,6 +80,7 @@ public class PageController {
 
     }
 
+    //
     @GetMapping("/addPatient")
     public String showAddPatient(Model model) {
 
@@ -88,6 +92,7 @@ public class PageController {
 
     }
 
+    //
     @PostMapping("/addPatient")
     public String addPatient(Patient patient, Model model) {
         if (proxyService.verify()) {
@@ -97,9 +102,11 @@ public class PageController {
         return "redirect:/frontend/login";
     }
 
-    @RequestMapping("/deleteAll")
-    public void deleteAll() {
+    //
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAll() {
         proxyService.deleteALL();
+        return new ResponseEntity<>("All patients deleted", HttpStatus.OK);
     }
 
 }

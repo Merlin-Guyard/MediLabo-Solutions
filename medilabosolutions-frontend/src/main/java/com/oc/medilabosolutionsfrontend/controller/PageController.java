@@ -42,4 +42,26 @@ public class PageController {
         }
         return "redirect:/frontend/login";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id, Model model) {
+
+        if(proxyService.verify()) {
+            proxyService.deleteById(id);
+            return "redirect:/frontend/home";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewUser(@PathVariable("id") Integer id, Model model) {
+
+        if(proxyService.verify()) {
+            proxyService.getUser(id);
+            return "/frontend/view";
+        }
+        return "redirect:/frontend/login";
+
+    }
+
 }

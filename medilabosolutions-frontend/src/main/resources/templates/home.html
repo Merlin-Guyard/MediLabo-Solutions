@@ -27,10 +27,11 @@
                         <tr th:each="patient : ${patients}">
                             <td th:text="${patient.firstName}"></td>
                             <td th:text="${patient.lastName}"></td>
-<!--                            <td style="width: 15%" class="text-center">-->
-<!--                                <a th:href="">View</a>&nbsp;|&nbsp;-->
-<!--                                <a th:href="">Delete</a>-->
-<!--                            </td>-->
+                            <td style="width: 15%" class="text-center">
+                                <a th:href="@{/view/{id}(id=${patient.id})}">View</a>
+                                <a th:href="@{/delete/{id}(id=${patient.id})}">Delete</a>
+
+                            </td>
                         </tr>
                         </tbody>
                     </table>

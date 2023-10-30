@@ -79,4 +79,10 @@ public class ProxyService {
             return false;
         }
     }
+
+    public void deleteById(Integer id) {
+    }
+
+    public void getUser(Integer id) {
+    }
 }

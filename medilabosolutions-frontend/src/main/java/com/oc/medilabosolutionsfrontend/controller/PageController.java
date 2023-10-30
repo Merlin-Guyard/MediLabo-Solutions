@@ -4,7 +4,6 @@ import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.service.ProxyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -26,8 +25,7 @@ public class PageController {
 
     @PostMapping("/connect")
     public String connect(@ModelAttribute User user) {
-        // Afficher les données de l'objet titi dans la console
-        proxyService.connect(user);
+        proxyService.login(user);
 
         return "redirect:/frontend/home"; // Redirige vers la page d'accueil
     }

@@ -52,8 +52,8 @@ public class ProxyService {
         }
     }
 
-    public void connect(User user) {
-        String url = "http://localhost:8080/gateway/connect";
+    public void login(User user) {
+        String url = "http://localhost:8080/login";
 
         ResponseEntity<Void> responseEntity = restTemplate.postForEntity(url, user, Void.class);
 

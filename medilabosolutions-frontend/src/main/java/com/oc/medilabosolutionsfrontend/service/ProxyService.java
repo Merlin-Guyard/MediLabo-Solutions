@@ -91,4 +91,23 @@ public class ProxyService {
             Logger.info("Patient deletion failure");
         }
     }
+
+    public Patient getPatient(Integer id) {
+        String url = "http://localhost:8080/backend/getPatient/" + id;
+
+        ResponseEntity<Patient> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                Patient.class
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Fetching patient success");
+            return responseEntity.getBody();
+        } else {
+            Logger.info("Fetching patient failure");
+            return null;
+        }
+    }
 }

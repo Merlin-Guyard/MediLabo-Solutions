@@ -57,7 +57,7 @@ public class PageController {
     public String viewUser(@PathVariable("id") Integer id, Model model) {
 
         if(proxyService.verify()) {
-//            proxyService.getUser(id);
+            proxyService.getPatient(id);
             return "/frontend/view";
         }
         return "redirect:/frontend/login";

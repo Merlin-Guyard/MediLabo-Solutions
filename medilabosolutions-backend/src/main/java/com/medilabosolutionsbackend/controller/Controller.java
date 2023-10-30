@@ -106,4 +106,10 @@ public class Controller {
         }
     }
 
+    @RequestMapping("/getPatient/{id}")
+    public ResponseEntity<Patient> getPatient(@PathVariable Integer id) {
+        Patient patient = patientService.getPatientById(id);
+        return ResponseEntity.ok(patient);
+    }
+
 }

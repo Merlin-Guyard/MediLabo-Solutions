@@ -66,7 +66,6 @@ public class PageController {
             return "view";
         }
         return "redirect:/frontend/login";
-
     }
 
     @PostMapping("/view/{id}")
@@ -77,7 +76,6 @@ public class PageController {
             return "redirect:/frontend/home";
         }
         return "redirect:/frontend/login";
-
     }
 
     //

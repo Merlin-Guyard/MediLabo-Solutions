@@ -5,6 +5,7 @@ import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.controller.PageController;
 import com.oc.medilabosolutionsfrontend.service.ProxyService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,55 @@ public class PageControllerTest {
     }
 
     @Test
+    void patientViewTest() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Patient patient = new Patient(
+                "John",
+                "Doe",
+                "1990-01-01",
+                "M",
+                "123 Main St",
+                "123-456-7890"
+        );
+
+        proxyService.addPatient(patient);
+        List<Patient> patientList = proxyService.getAllPatient();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/view/" + patientList.get(0).getId()))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("view"));
+    }
+
+    @Test
+    void patientUpdateTest() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Patient patient = new Patient(
+                "John",
+                "Doe",
+                "1990-01-01",
+                "M",
+                "123 Main St",
+                "123-456-7890"
+        );
+
+        proxyService.addPatient(patient);
+        List<Patient> patientList = proxyService.getAllPatient();
+
+        patient.setFirstName("Bob");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/view/" + patientList.get(0).getId())
+                .flashAttr("patient", patient))
+                .andExpect(status().isFound())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/home"));
+    }
+
+    @Test
     void testAddPatient() throws Exception {
 
         User user = new User("doctor", "mdp");
@@ -135,31 +185,32 @@ public class PageControllerTest {
     }
 
     //TODO : error not found, found, empty list it goes in wrong if
-//    @Test
-//    void testDeletePatient() throws Exception {
-//
-//        User user = new User("doctor", "mdp");
-//        proxyService.login(user);
-//
-//        Patient patient = new Patient(
-//                "John",
-//                "Doe",
-//                "1990-01-01",
-//                "M",
-//                "123 Main St",
-//                "123-456-7890"
-//        );
-//
-//        proxyService.addPatient(patient);
-//        List<Patient> patientList = proxyService.getAllPatient();
-//
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/delete/" + patientList.get(0).getId()))
-//                .andExpect(status().isFound())
-//                .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
-//
-//        assertEquals(proxyService.getAllPatient().size(),0);
-//    }
+    @Test
+    @Disabled
+    void testDeletePatient() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Patient patient = new Patient(
+                "John",
+                "Doe",
+                "1990-01-01",
+                "M",
+                "123 Main St",
+                "123-456-7890"
+        );
+
+        proxyService.addPatient(patient);
+        List<Patient> patientList = proxyService.getAllPatient();
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/delete/" + patientList.get(0).getId()))
+                .andExpect(status().isFound())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
+
+        assertEquals(proxyService.getAllPatient().size(),0);
+    }
 
 
 }

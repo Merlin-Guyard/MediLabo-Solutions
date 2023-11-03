@@ -41,4 +41,8 @@ public class PatientService {
         patient.setId(id);
         patientRepository.save(patient);
     }
+
+    public void deleteAll() {
+        patientRepository.deleteAll();
+    }
 }

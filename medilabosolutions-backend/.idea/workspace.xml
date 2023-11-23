@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/.dockerignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,15 +39,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/test",
-    "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/pom.xml"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Docker&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Programmation\OC\P9_medilabo_solutions\Medilabo-Solutions\medilabosolutions-backend" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Docker.Dockerfile">
     <configuration name="MedilabosolutionsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.MedilabosolutionsApplication" />
       <module name="medilabosolutions-backend" />
@@ -56,8 +67,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="Application.MedilabosolutionsApplication" />
       </list>
     </recent_temporary>
@@ -72,5 +98,9 @@
       <updated>1698144935690</updated>
     </task>
     <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

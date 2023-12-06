@@ -1,6 +1,7 @@
 package com.oc.medilabosolutionsfrontend.service;
 
 import com.oc.medilabosolutionsfrontend.Model.Patient;
+import com.oc.medilabosolutionsfrontend.Model.Url;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.repository.UserRepository;
 import org.pmw.tinylog.Logger;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,6 +21,8 @@ import static org.springframework.http.HttpMethod.DELETE;
 
 @Service
 public class ProxyService {
+
+//    private final Url url;
 
     private final UserRepository userRepository;
 
@@ -30,32 +32,33 @@ public class ProxyService {
         this.userRepository = userRepository;
         this.restTemplate = restTemplateBuilder.build();
     }
+
     public boolean login(User user) {
-        String url = "http://localhost:8080/login";
+        String url = "http://app-gateway:8080/login";
 
         try {
             restTemplate.postForEntity(url, user, Void.class);
             userRepository.changeUser(user);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     public boolean verify() {
-        String url = "http://localhost:8080/login";
+        String url = "http://app-gateway:8080/login";
 
         User user = userRepository.getUser();
         try {
             restTemplate.postForEntity(url, user, Void.class);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     public List<Patient> getAllPatient() {
-        String url = "http://localhost:8080/backend/getPatients";
+        String url = "http://app-gateway:8080/backend/getPatients";
 
         ResponseEntity<List<Patient>> responseEntity = restTemplate.exchange(
                 url,
@@ -75,7 +78,7 @@ public class ProxyService {
     }
 
     public void deleteById(Integer id) {
-        String url = "http://localhost:8080/backend/deletePatient/" + id;
+        String url = "http://app-backend:8080/backend/deletePatient/" + id;
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url,
@@ -92,7 +95,7 @@ public class ProxyService {
     }
 
     public Patient getPatient(Integer id) {
-        String url = "http://localhost:8080/backend/getPatient/" + id;
+        String url = "http://app-backend:8080/backend/getPatient/" + id;
 
         ResponseEntity<Patient> responseEntity = restTemplate.exchange(
                 url,
@@ -111,36 +114,36 @@ public class ProxyService {
     }
 
     public boolean updatePatient(Integer id, Patient patient) {
-        String url = "http://localhost:8080/backend/updatePatient/" +id;
+        String url = "http://app-backend:8080/backend/updatePatient/" + id;
 
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return false;
         }
     }
 
     public boolean addPatient(Patient patient) {
-        String url = "http://localhost:8080/backend/addPatient";
+        String url = "http://app-backend:8080/backend/addPatient";
 
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return false;
         }
     }
 
     public void deleteALL() {
-            ResponseEntity<String> responseEntity = restTemplate.exchange(
-                    "http://localhost:8080/backend/deleteAll",
-                    DELETE,
-                    null,
-                    String.class
-            );
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                "http://app-gateway:8080/backend/deleteALL",
+                DELETE,
+                null,
+                String.class
+        );
 
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
@@ -148,5 +151,5 @@ public class ProxyService {
         } else {
             Logger.info("Patient deletion failure");
         }
-        }
+    }
 }

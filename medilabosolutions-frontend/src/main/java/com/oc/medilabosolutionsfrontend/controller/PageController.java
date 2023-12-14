@@ -39,7 +39,7 @@ public class PageController {
 
     //
     @GetMapping("/home")
-    public String home(Model model) {
+    public String homePage(Model model) {
         model.addAttribute("patients", proxyService.getAllPatient());
 
         if (proxyService.verify()) {
@@ -49,7 +49,7 @@ public class PageController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletePatient(@PathVariable("id") Integer id, Model model) {
+    public String deletePatientPage(@PathVariable("id") Integer id, Model model) {
 
         if (proxyService.verify()) {
             proxyService.deleteById(id);
@@ -59,7 +59,7 @@ public class PageController {
     }
 
     @GetMapping("/view/{id}")
-    public String viewPatient(@PathVariable("id") Integer id, Model model) {
+    public String viewPatientPage(@PathVariable("id") Integer id, Model model) {
 
         if (proxyService.verify()) {
             model.addAttribute("patient", proxyService.getPatient(id));
@@ -68,7 +68,17 @@ public class PageController {
         return "redirect:/frontend/login";
     }
 
-    @PostMapping("/view/{id}")
+    @GetMapping("/update/{id}")
+    public String updatePatientPage(@PathVariable("id") Integer id, Model model) {
+
+        if (proxyService.verify()) {
+            model.addAttribute("patient", proxyService.getPatient(id));
+            return "update";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @PostMapping("/update/{id}")
     public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
 
         if (proxyService.verify()) {
@@ -103,7 +113,7 @@ public class PageController {
     //
     @DeleteMapping("/deleteAll")
     public ResponseEntity<String> deleteAll() {
-        proxyService.deleteALL();
+        proxyService.deleteAll();
         return new ResponseEntity<>("All patients deleted", HttpStatus.OK);
     }
 

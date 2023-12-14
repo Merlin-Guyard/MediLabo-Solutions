@@ -1,0 +1,63 @@
+version: "1"
+services:
+  db-mysql:
+    image: mysql
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      MYSQLDB_ROOT_PASSWORD: root
+      MYSQLDB_DATABASE: root
+    ports:
+      - 3310:3306
+    volumes:
+      - db:/var/lib/mysql
+
+  app-backend:
+    depends_on:
+    - db-mysql
+    restart: on-failure
+    build:
+      context: ./medilabosolutions-backend
+      dockerfile: Dockerfile
+    env_file: ./.env
+    image: backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-mysql:$MYSQLDB_DOCKER_PORT/$MYSQLDB_DATABASE
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+    ports:
+      - 8081:8081
+
+  app-gateway:
+    restart: on-failure
+    build:
+      context: ./medilabosolutions-gateway
+      dockerfile: Dockerfile
+    env_file: ./.env
+    image: gateway
+    environment:
+      - spring.cloud.gateway.routes[0].id=backend-route
+      - spring.cloud.gateway.routes[0].uri=http://app-backend:8081
+      - spring.cloud.gateway.routes[0].predicates[0]=Path=/backend/**
+      - spring.cloud.gateway.routes[1].id=frontend-route
+      - spring.cloud.gateway.routes[1].uri=http://app-frontend:8082
+      - spring.cloud.gateway.routes[1].predicates[0]=Path=/frontend/**
+    ports:
+      - 8080:8080
+
+  app-frontend:
+    restart: on-failure
+    build:
+      context: ./medilabosolutions-frontend
+      dockerfile: Dockerfile
+    env_file: ./.env
+    image: frontend
+    environment:
+      - url=http://app-gateway:8080/
+    ports:
+      - 8082:8082
+
+volumes:
+  db:

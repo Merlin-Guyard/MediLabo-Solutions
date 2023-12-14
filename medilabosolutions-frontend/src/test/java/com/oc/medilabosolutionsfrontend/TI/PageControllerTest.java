@@ -39,7 +39,7 @@ public class PageControllerTest {
 
     @BeforeEach
     public void initEach() throws Exception {
-        proxyService.deleteALL();
+        proxyService.deleteAll();
     }
 
     @Test

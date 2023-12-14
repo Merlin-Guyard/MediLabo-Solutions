@@ -9,6 +9,10 @@
 <div class="container">
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="container text-center">
+            <!-- Bouton "Add Patient" -->
+            <a th:href="@{/frontend/addPatient}" class="btn btn-primary mb-2">Add Patient</a>
+
+            <!-- Tableau -->
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -23,7 +27,6 @@
                     <td th:text="${patient.lastName}"></td>
                     <td style="width: 15%" class="text-center">
                         <a th:href="@{/frontend/view/{id}(id=${patient.id})}">View</a>
-                        <a th:href="@{/frontend/addPatient}">Add</a>
                         <a th:href="@{/frontend/delete/{id}(id=${patient.id})}">Delete</a>
                     </td>
                 </tr>

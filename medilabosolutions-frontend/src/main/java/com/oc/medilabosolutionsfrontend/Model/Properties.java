@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Url {
+public class Properties {
 
     @Value("${url}")
     private String url;
 
-    public Url() {
+    public Properties() {
     }
 
     public String getUrl() {

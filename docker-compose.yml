@@ -5,10 +5,10 @@ services:
     restart: unless-stopped
     env_file: ./.env
     environment:
-      MYSQLDB_ROOT_PASSWORD: $MYSQLDB_ROOT_PASSWORD
-      MYSQLDB_DATABASE: $MYSQLDB_DATABASE
+      MYSQLDB_ROOT_PASSWORD: root
+      MYSQLDB_DATABASE: root
     ports:
-      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+      - 3310:3306
     volumes:
       - db:/var/lib/mysql
 
@@ -28,7 +28,7 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: true
     ports:
-      - $SPRING_LOCAL_PORT_BACKEND:$SPRING_DOCKER_PORT_BACKEND
+      - 8081:8081
 
   app-gateway:
     restart: on-failure
@@ -39,13 +39,13 @@ services:
     image: gateway
     environment:
       - spring.cloud.gateway.routes[0].id=backend-route
-      - spring.cloud.gateway.routes[0].uri=http://app-backend:$SPRING_LOCAL_PORT_BACKEND
+      - spring.cloud.gateway.routes[0].uri=http://app-backend:8081
       - spring.cloud.gateway.routes[0].predicates[0]=Path=/backend/**
       - spring.cloud.gateway.routes[1].id=frontend-route
-      - spring.cloud.gateway.routes[1].uri=http://app-frontend:$SPRING_LOCAL_PORT_FRONTEND
+      - spring.cloud.gateway.routes[1].uri=http://app-frontend:8082
       - spring.cloud.gateway.routes[1].predicates[0]=Path=/frontend/**
     ports:
-      - $SPRING_LOCAL_PORT_GATEWAY:$SPRING_DOCKER_PORT_GATEWAY
+      - 8080:8080
 
   app-frontend:
     restart: on-failure
@@ -54,8 +54,10 @@ services:
       dockerfile: Dockerfile
     env_file: ./.env
     image: frontend
+    environment:
+      - url=http://app-gateway:8080/
     ports:
-      - $SPRING_LOCAL_PORT_FRONTEND:$SPRING_DOCKER_PORT_FRONTEND
+      - 8082:8082
 
 volumes:
   db:

@@ -1,7 +1,7 @@
 package com.oc.medilabosolutionsfrontend.service;
 
 import com.oc.medilabosolutionsfrontend.Model.Patient;
-import com.oc.medilabosolutionsfrontend.Model.Url;
+import com.oc.medilabosolutionsfrontend.Model.Properties;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.repository.UserRepository;
 import org.pmw.tinylog.Logger;
@@ -22,19 +22,20 @@ import static org.springframework.http.HttpMethod.DELETE;
 @Service
 public class ProxyService {
 
-//    private final Url url;
+    private final Properties properties;
 
     private final UserRepository userRepository;
 
     private final RestTemplate restTemplate;
 
-    public ProxyService(UserRepository userRepository, RestTemplateBuilder restTemplateBuilder) {
+    public ProxyService(Properties properties, UserRepository userRepository, RestTemplateBuilder restTemplateBuilder) {
+        this.properties = properties;
         this.userRepository = userRepository;
         this.restTemplate = restTemplateBuilder.build();
     }
 
     public boolean login(User user) {
-        String url = "http://app-gateway:8080/login";
+        String url = properties.getUrl() + "login";
 
         try {
             restTemplate.postForEntity(url, user, Void.class);
@@ -46,7 +47,7 @@ public class ProxyService {
     }
 
     public boolean verify() {
-        String url = "http://app-gateway:8080/login";
+        String url = properties.getUrl() + "login";
 
         User user = userRepository.getUser();
         try {
@@ -58,7 +59,7 @@ public class ProxyService {
     }
 
     public List<Patient> getAllPatient() {
-        String url = "http://app-gateway:8080/backend/getPatients";
+        String url = properties.getUrl() + "backend/getPatients";
 
         ResponseEntity<List<Patient>> responseEntity = restTemplate.exchange(
                 url,
@@ -78,7 +79,7 @@ public class ProxyService {
     }
 
     public void deleteById(Integer id) {
-        String url = "http://app-backend:8080/backend/deletePatient/" + id;
+        String url = properties.getUrl() + "backend/deletePatient/" + id;
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url,
@@ -95,7 +96,7 @@ public class ProxyService {
     }
 
     public Patient getPatient(Integer id) {
-        String url = "http://app-backend:8080/backend/getPatient/" + id;
+        String url = properties.getUrl() + "backend/getPatient/" + id;
 
         ResponseEntity<Patient> responseEntity = restTemplate.exchange(
                 url,
@@ -114,7 +115,7 @@ public class ProxyService {
     }
 
     public boolean updatePatient(Integer id, Patient patient) {
-        String url = "http://app-backend:8080/backend/updatePatient/" + id;
+        String url = properties.getUrl() + "backend/updatePatient/" + id;
 
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
@@ -126,7 +127,7 @@ public class ProxyService {
     }
 
     public boolean addPatient(Patient patient) {
-        String url = "http://app-backend:8080/backend/addPatient";
+        String url = properties.getUrl() + "backend/addPatient";
 
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
@@ -137,9 +138,9 @@ public class ProxyService {
         }
     }
 
-    public void deleteALL() {
+    public void deleteAll() {
         ResponseEntity<String> responseEntity = restTemplate.exchange(
-                "http://app-gateway:8080/backend/deleteALL",
+                properties.getUrl() + "backend/deleteAll",
                 DELETE,
                 null,
                 String.class

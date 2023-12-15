@@ -5,6 +5,7 @@ import com.oc.medilabosolutionnotes.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteService {
@@ -24,5 +25,16 @@ public class NoteService {
 
     public List<Note> testRead() {
         return noteRepository.findAll();
+    }
+
+    public void addNote(Note note) {
+        noteRepository.save(note);
+    }
+
+    public List<Note> getNotes(String patient) {
+        List<Note> notes = noteRepository.findAll();
+        return notes.stream()
+                .filter(note -> note.getPatient().equals(patient))
+                .collect(Collectors.toList());
     }
 }

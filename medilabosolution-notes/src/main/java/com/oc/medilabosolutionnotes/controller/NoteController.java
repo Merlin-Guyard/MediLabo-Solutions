@@ -3,7 +3,10 @@ package com.oc.medilabosolutionnotes.controller;
 import com.oc.medilabosolutionnotes.model.Note;
 import com.oc.medilabosolutionnotes.service.NoteService;
 import org.pmw.tinylog.Logger;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,4 +41,22 @@ public class NoteController {
     }
         return ResponseEntity.ok(notes);
     }
+
+    @RequestMapping("/addNote")
+    public ResponseEntity<String> addNote(@RequestBody Note note) {
+        try {
+            noteService.addNote(note);
+            return ResponseEntity.ok("Note addition success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Note addition failure");
+        }
+    }
+
+    @RequestMapping("/getNote/{patient}")
+    public ResponseEntity<List<Note>> getNote(@PathVariable String patient) {
+        List<Note> notes = noteService.getNotes(patient);
+        return ResponseEntity.ok(notes);
+    }
+
+
 }

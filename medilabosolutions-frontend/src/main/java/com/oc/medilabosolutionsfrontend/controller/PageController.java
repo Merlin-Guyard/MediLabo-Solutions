@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/frontend")
@@ -90,10 +93,9 @@ public class PageController {
 
     //
     @GetMapping("/addPatient")
-    public String showAddPatient(Model model) {
+    public String showAddPatient(Patient patient) {
 
         if (proxyService.verify()) {
-            model.addAttribute("patient", new Patient());
             return "add";
         }
         return "redirect:/frontend/login";
@@ -102,8 +104,13 @@ public class PageController {
 
     //
     @PostMapping("/addPatient")
-    public String addPatient(Patient patient, Model model) {
+    public String addPatient(@Valid Patient patient, BindingResult bindingResult, Model model) {
+
         if (proxyService.verify()) {
+            if(bindingResult.hasErrors()){
+                return "add";
+            }
+
             proxyService.addPatient(patient);
             return "redirect:/frontend/home";
         }

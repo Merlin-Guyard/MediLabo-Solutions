@@ -1,15 +1,21 @@
 package com.oc.medilabosolutionsfrontend.Model;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 public class Patient {
 
     private int id;
 
+    @NotBlank(message = "First name is required")
     private String firstName;
 
+    @NotBlank(message = "Last name is required")
     private String lastName;
 
+    @NotBlank(message = "Birthdate is required")
     private String birthdate;
 
+    @NotBlank(message = "Gender is required")
     private String gender;
 
     private String postalAddress;

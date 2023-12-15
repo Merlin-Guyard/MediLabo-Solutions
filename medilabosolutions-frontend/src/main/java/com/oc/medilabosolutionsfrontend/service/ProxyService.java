@@ -157,8 +157,8 @@ public class ProxyService {
         }
     }
 
-    public List<Note> getNotes(Patient patient) {
-        String url = properties.getUrl() + "notes/getNote/" + patient.getId();
+    public List<Note> getNotes(Integer patientId) {
+        String url = properties.getUrl() + "notes/getNote/" + patientId;
 
         ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
                 url,

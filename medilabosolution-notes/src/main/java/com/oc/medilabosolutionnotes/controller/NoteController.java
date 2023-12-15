@@ -52,9 +52,9 @@ public class NoteController {
         }
     }
 
-    @RequestMapping("/getNote/{patient}")
-    public ResponseEntity<List<Note>> getNote(@PathVariable String patient) {
-        List<Note> notes = noteService.getNotes(patient);
+    @RequestMapping("/getNote/{patientId}")
+    public ResponseEntity<List<Note>> getNote(@PathVariable String patientId) {
+        List<Note> notes = noteService.getNotes(patientId);
         return ResponseEntity.ok(notes);
     }
 

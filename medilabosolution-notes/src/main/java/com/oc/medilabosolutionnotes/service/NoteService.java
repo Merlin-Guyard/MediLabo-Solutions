@@ -31,10 +31,10 @@ public class NoteService {
         noteRepository.save(note);
     }
 
-    public List<Note> getNotes(String patient) {
+    public List<Note> getNotes(String patientId) {
         List<Note> notes = noteRepository.findAll();
         return notes.stream()
-                .filter(note -> note.getPatient().equals(patient))
+                .filter(note -> note.getPatientId().equals(patientId))
                 .collect(Collectors.toList());
     }
 }

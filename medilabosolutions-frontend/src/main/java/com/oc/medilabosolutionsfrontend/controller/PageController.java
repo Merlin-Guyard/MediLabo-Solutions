@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.controller;
 
+import com.oc.medilabosolutionsfrontend.Model.Note;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.service.ProxyService;
@@ -87,6 +88,28 @@ public class PageController {
         if (proxyService.verify()) {
             proxyService.updatePatient(id, patient);
             return "redirect:/frontend/home";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @GetMapping("/notes/{id}")
+    public String notesPage(@PathVariable("id") Integer id, Model model) {
+
+        if (proxyService.verify()) {
+            Patient patient = proxyService.getPatient(id);
+            model.addAttribute("patient", patient);
+            model.addAttribute("notes", proxyService.getNotes(patient));
+            return "notes";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @PostMapping("/notes/{id}")
+    public String updateNotes(@PathVariable("id") Integer id, Note newNote, Model model) {
+
+        if (proxyService.verify()) {
+            proxyService.updateNotes(newNote);
+            return "notes";
         }
         return "redirect:/frontend/login";
     }

@@ -1,13 +1,6 @@
-package com.oc.medilabosolutionnotes.model;
+package com.oc.medilabosolutionsfrontend.Model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "notes")
 public class Note {
-
-    @Id
-    private String id;
 
     private String patientId;
 
@@ -16,17 +9,9 @@ public class Note {
     public Note() {
     }
 
-    public Note(String patient, String note) {
-        this.patientId = patient;
+    public Note(String patientId, String note) {
+        this.patientId = patientId;
         this.note = note;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getPatientId() {

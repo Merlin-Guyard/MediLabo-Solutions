@@ -8,22 +8,27 @@
 <body>
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="col-md-4">
-        <form action="/frontend/addPatient" method="post" th:object="${patient}" class="form">
+        <form th:action="@{/frontend/addPatient}" method="post" th:object="${patient}" class="form">
+
             <div class="form-group">
                 <label for="firstName">First name :</label>
                 <input type="text" id="firstName" name="firstName" th:field="*{firstName}" class="form-control">
+                <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
             </div>
             <div class="form-group">
                 <label for="lastName">Last Name :</label>
                 <input type="lastName" id="lastName" name="lastName" th:field="*{lastName}" class="form-control">
+                <p class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
             </div>
             <div class="form-group">
                 <label for="birthdate">Birthdate :</label>
                 <input type="text" id="birthdate" name="birthdate" th:field="*{birthdate}" class="form-control">
+                <p class="text-danger" th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}"></p>
             </div>
             <div class="form-group">
                 <label for="gender">Gender :</label>
                 <input type="gender" id="gender" name="gender" th:field="*{gender}" class="form-control">
+                <p class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
             </div>
             <div class="form-group">
                 <label for="postalAddress">Postal Address :</label>
@@ -33,8 +38,8 @@
                 <label for="phoneNumber">Phone Number :</label>
                 <input type="phoneNumber" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
             <a class="btn btn-danger btn-sm" href="/frontend/home">Cancel</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>

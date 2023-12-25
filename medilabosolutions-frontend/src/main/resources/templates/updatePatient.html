@@ -9,7 +9,7 @@
 <div class="container">
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="mx-auto">
-            <form action="#" th:action="@{/frontend/update/{id}(id=${patient.id})}" th:object="${patient}" method="post" class="form-horizontal" style="width: 100%">
+            <form action="#" th:action="@{/frontend/updatePatient/{id}(id=${patient.id})}" th:object="${patient}" method="post" class="form-horizontal" style="width: 100%">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name" class="form-control">

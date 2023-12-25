@@ -1,8 +1,10 @@
 package com.oc.medilabosolutionsfrontend.controller;
 
+import com.oc.medilabosolutionsfrontend.Model.Note;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.service.ProxyService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/frontend")
@@ -65,28 +67,53 @@ public class PageController {
     public String viewPatientPage(@PathVariable("id") Integer id, Model model) {
 
         if (proxyService.verify()) {
-            model.addAttribute("patient", proxyService.getPatient(id));
+            Patient patient = proxyService.getPatient(id);
+            model.addAttribute("patient", patient);
+            model.addAttribute("notes", proxyService.getNotes(patient.getId()));
             return "view";
         }
         return "redirect:/frontend/login";
     }
 
-    @GetMapping("/update/{id}")
+    @GetMapping("/updatePatient/{id}")
     public String updatePatientPage(@PathVariable("id") Integer id, Model model) {
 
         if (proxyService.verify()) {
             model.addAttribute("patient", proxyService.getPatient(id));
-            return "update";
+            return "updatePatient";
         }
         return "redirect:/frontend/login";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/updatePatient/{id}")
     public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
 
         if (proxyService.verify()) {
             proxyService.updatePatient(id, patient);
             return "redirect:/frontend/home";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @GetMapping("/updateNotes/{id}")
+    public String updateNotesPage(@PathVariable("id") Integer id, Model model) {
+        if (proxyService.verify()) {
+            Patient patient = proxyService.getPatient(id);
+            List<Note> notes = proxyService.getNotes(patient.getId());
+            model.addAttribute("patient", patient);
+            model.addAttribute("notes", notes);
+            model.addAttribute("note", new Note());  // Ajout de la nouvelle note au modèle
+            return "updateNotes";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @PostMapping("/updateNotes/{id}")
+    public String updateNotes(@PathVariable("id") Integer id, @ModelAttribute("note") Note note, Model model) {
+        if (proxyService.verify()) {
+            note.setPatientId(String.valueOf(id));
+            proxyService.updateNotes(note);
+            return "redirect:/frontend/view/{id}";
         }
         return "redirect:/frontend/login";
     }

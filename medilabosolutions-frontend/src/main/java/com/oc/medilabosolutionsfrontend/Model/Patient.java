@@ -1,6 +1,6 @@
 package com.oc.medilabosolutionsfrontend.Model;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+
 
 public class Patient {
 

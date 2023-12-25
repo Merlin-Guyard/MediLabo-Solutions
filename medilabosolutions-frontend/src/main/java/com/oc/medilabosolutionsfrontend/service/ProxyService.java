@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.service;
 
+import com.oc.medilabosolutionsfrontend.Model.Note;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.Properties;
 import com.oc.medilabosolutionsfrontend.Model.User;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
 
 @Service
 public class ProxyService {
@@ -152,5 +155,35 @@ public class ProxyService {
         } else {
             Logger.info("Patient deletion failure");
         }
+    }
+
+    public List<Note> getNotes(Integer patientId) {
+        String url = properties.getUrl() + "notes/getNote/" + patientId;
+
+        ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Note>>() {}
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Fetching notes success");
+            return responseEntity.getBody();
+        } else {
+            Logger.info("Fetching notes failure");
+            return Collections.emptyList();
+        }
+    }
+
+    public void updateNotes(Note note) {
+        String url = properties.getUrl() + "notes/addNote";
+
+        try {
+            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(note), Void.class);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 }

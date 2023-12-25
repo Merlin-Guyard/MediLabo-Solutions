@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>VIEW</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="mx-auto">
+            <form action="#" th:action="@{/frontend/updateNotes/{id}(id=${patient.id})}" method="post" class="form-horizontal" style="width: 100%">
+                <div class="form-group">
+                    <label for="note">New note</label>
+                    <input type="text" th:field="*{note.note}" id="note" placeholder="Some Notes" class="form-control">
+                    <p class="text-danger" th:if="${#fields.hasErrors('note.note')}" th:errors="*{note.note}"></p>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

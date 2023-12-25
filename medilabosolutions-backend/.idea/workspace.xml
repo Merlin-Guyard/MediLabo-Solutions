@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/Model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/Model/Patient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/add.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +39,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/RequiredFields",
+    "git-widget-placeholder": "feature/notes",
     "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/pom.xml",
     "settings.editor.selected.configurable": "MavenSettings"
   }

@@ -53,12 +53,22 @@ public class PageController {
         return "redirect:/frontend/login";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deletePatientPage(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/deletePatient/{id}")
+    public String deletePatient(@PathVariable("id") Integer id, Model model) {
 
         if (proxyService.verify()) {
-            proxyService.deleteById(id);
+            proxyService.deletePatientById(id);
             return "redirect:/frontend/home";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @GetMapping("/deleteNote/{id}")
+    public String deleteNote(@PathVariable("id") Integer id, Model model) {
+
+        if (proxyService.verify()) {
+            proxyService.deleteNoteById(id);
+            return "view";
         }
         return "redirect:/frontend/login";
     }

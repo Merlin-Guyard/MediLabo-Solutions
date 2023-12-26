@@ -47,11 +47,21 @@
                 <div class="col">
                     <div th:if="${notes}">
                         <h3>Notes:</h3>
-                        <ul class="list-group">
-                            <li class="list-group-item" th:each="note : ${notes}">
-                                <span th:text="${note.note}"></span>
-                            </li>
-                        </ul>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Note</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="note : ${notes}">
+                                <td th:text="${note.note}"></td>
+                                <td style="width: 15%" class="text-center">
+                                    <a th:href="@{/frontend/deleteNote/{id}(id=${note.id})}">Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div th:unless="${notes}">
                         <p>No notes available.</p>

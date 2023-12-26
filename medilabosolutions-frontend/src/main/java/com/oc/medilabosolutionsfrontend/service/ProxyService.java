@@ -81,7 +81,7 @@ public class ProxyService {
         }
     }
 
-    public void deleteById(Integer id) {
+    public void deletePatientById(Integer id) {
         String url = properties.getUrl() + "backend/deletePatient/" + id;
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
@@ -183,6 +183,24 @@ public class ProxyService {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(note), Void.class);
         } catch (Exception e) {
             System.out.println(e);
+        }
+
+    }
+
+    public void deleteNoteById(Integer id) {
+        String url = properties.getUrl() + "notes/deleteNote/" + id;
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                url,
+                DELETE,
+                null,
+                String.class
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Note deletion success");
+        } else {
+            Logger.info("Note deletion failure");
         }
 
     }

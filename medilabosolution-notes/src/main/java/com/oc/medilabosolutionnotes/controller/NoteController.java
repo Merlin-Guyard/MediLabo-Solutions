@@ -58,5 +58,15 @@ public class NoteController {
         return ResponseEntity.ok(notes);
     }
 
+    @RequestMapping("/deleteNote/{id}")
+    public ResponseEntity<String> deleteNote(@PathVariable Integer id) {
+        try {
+            noteService.deleteById(id);
+            return ResponseEntity.ok("Note deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete note");
+        }
+    }
+
 
 }

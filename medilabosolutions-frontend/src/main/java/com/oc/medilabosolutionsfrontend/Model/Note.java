@@ -2,6 +2,8 @@ package com.oc.medilabosolutionsfrontend.Model;
 
 public class Note {
 
+    private int id;
+
     private String patientId;
 
     private String note;
@@ -9,9 +11,18 @@ public class Note {
     public Note() {
     }
 
-    public Note(String patientId, String note) {
+    public Note(int id, String patientId, String note) {
+        this.id = id;
         this.patientId = patientId;
         this.note = note;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPatientId() {

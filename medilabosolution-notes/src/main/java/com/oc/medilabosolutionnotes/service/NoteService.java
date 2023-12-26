@@ -37,4 +37,8 @@ public class NoteService {
                 .filter(note -> note.getPatientId().equals(patientId))
                 .collect(Collectors.toList());
     }
+
+    public void deleteById(Integer id) {
+        noteRepository.deleteById(String.valueOf(id));
+    }
 }

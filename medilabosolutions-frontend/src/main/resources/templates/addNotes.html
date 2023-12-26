@@ -9,10 +9,10 @@
 <div class="container">
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="mx-auto">
-            <form action="#" th:action="@{/frontend/updateNotes/{id}(id=${patient.id})}" method="post" class="form-horizontal" style="width: 100%">
+            <form action="#" th:action="@{/frontend/addNotes/{id}(id=${patient.id})}" method="post" class="form-horizontal" style="width: 100%">
                 <div class="form-group">
                     <label for="note">New note</label>
-                    <input type="text" th:field="*{note.note}" id="note" placeholder="Some Notes" class="form-control">
+                    <textarea th:field="*{note.note}" id="note" placeholder="Some Notes" class="form-control"></textarea>
                     <p class="text-danger" th:if="${#fields.hasErrors('note.note')}" th:errors="*{note.note}"></p>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

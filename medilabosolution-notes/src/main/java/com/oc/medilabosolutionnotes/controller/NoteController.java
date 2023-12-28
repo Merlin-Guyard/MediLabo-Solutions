@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -54,16 +53,9 @@ public class NoteController {
     }
 
     @RequestMapping("/getNote/{patientId}")
-    public ResponseEntity<?> getNote(@PathVariable String patientId) {
-
-        try {
-            List<Note> notes = noteService.getNotes(patientId);
-            return ResponseEntity.ok(notes);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
-        }
-
-
+    public ResponseEntity<List<Note>> getNote(@PathVariable String patientId) {
+        List<Note> notes = noteService.getNotes(patientId);
+        return ResponseEntity.ok(notes);
     }
 
     @RequestMapping("/deleteNote/{id}")

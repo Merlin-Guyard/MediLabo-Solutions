@@ -233,6 +233,35 @@ public class PageControllerTest {
     }
 
     @Test
+    void testAddNote() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Patient patient = new Patient(
+                "John",
+                "Doe",
+                "1990-01-01",
+                "M",
+                "123 Main St",
+                "123-456-7890"
+        );
+
+        proxyService.addPatient(patient);
+        List<Patient> patientList = proxyService.getAllPatient();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/addNotes/"+ patientList.get(0).getId())
+                        .param("patientId", "1")
+                        .param("note", "plop"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/view/"+ patientList.get(0).getId()));
+
+        List<Note> notes = proxyService.getNotes(patientList.get(0).getId());
+
+        assertEquals(notes.get(0).getNote(), "plop");
+    }
+
+    @Test
     void testDeleteNote() throws Exception {
 
         User user = new User("doctor", "mdp");
@@ -248,11 +277,7 @@ public class PageControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            proxyService.getNotes(1);
-        });
-
-        assertTrue(exception.getMessage().contains("Note not found for patient with id: 1"));
+        assertEquals(proxyService.getNotes(1).size(),0);
     }
 
 }

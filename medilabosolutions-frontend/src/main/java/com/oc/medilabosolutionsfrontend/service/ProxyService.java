@@ -161,18 +161,19 @@ public class ProxyService {
     public List<Note> getNotes(Integer patientId) {
         String url = properties.getUrl() + "notes/getNote/" + patientId;
 
-        try {
-            ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<List<Note>>() {}
-            );
+        ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Note>>() {}
+        );
 
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Fetching notes success");
             return responseEntity.getBody();
-        } catch (HttpClientErrorException.NotFound notFoundException) {
-            Logger.info("Note not found");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note not found for patient with id: " +patientId);
+        } else {
+            Logger.info("Fetching notes failure");
+            return Collections.emptyList();
         }
 
     }

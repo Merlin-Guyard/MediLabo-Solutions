@@ -36,9 +36,9 @@ public class NoteController {
     @RequestMapping("/testRead")
     public ResponseEntity<List<Note>> testRead() {
         List<Note> notes = noteService.testRead();
-        if (notes.isEmpty()){
+        if (notes.isEmpty()) {
             return ResponseEntity.noContent().build();
-    }
+        }
         return ResponseEntity.ok(notes);
     }
 
@@ -66,6 +66,11 @@ public class NoteController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete note");
         }
+    }
+
+    @RequestMapping("/deleteAll")
+    public void deleteAll() {
+        noteService.deleteAll();
     }
 
 

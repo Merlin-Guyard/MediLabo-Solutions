@@ -10,17 +10,18 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
 
 @Service
 public class ProxyService {
@@ -101,19 +102,19 @@ public class ProxyService {
     public Patient getPatient(Integer id) {
         String url = properties.getUrl() + "backend/getPatient/" + id;
 
-        ResponseEntity<Patient> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                Patient.class
-        );
+        try {
+            ResponseEntity<Patient> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    Patient.class
+            );
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Fetching patient success");
-            return responseEntity.getBody();
-        } else {
-            Logger.info("Fetching patient failure");
-            return null;
+                Logger.info("Fetching patient success");
+                return responseEntity.getBody();
+        } catch (HttpClientErrorException.NotFound notFoundException) {
+            Logger.info("Patient not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found with id: " + id);
         }
     }
 
@@ -142,19 +143,19 @@ public class ProxyService {
     }
 
     public void deleteAll() {
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
+        ResponseEntity<String> responseEntity1 = restTemplate.exchange(
                 properties.getUrl() + "backend/deleteAll",
                 DELETE,
                 null,
                 String.class
         );
 
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Patient deletion success");
-        } else {
-            Logger.info("Patient deletion failure");
-        }
+        ResponseEntity<String> responseEntity2 = restTemplate.exchange(
+                properties.getUrl() + "notes/deleteAll",
+                DELETE,
+                null,
+                String.class
+        );
     }
 
     public List<Note> getNotes(Integer patientId) {
@@ -174,9 +175,10 @@ public class ProxyService {
             Logger.info("Fetching notes failure");
             return Collections.emptyList();
         }
+
     }
 
-    public void updateNotes(Note note) {
+    public void addNotes(Note note) {
         String url = properties.getUrl() + "notes/addNote";
 
         try {
@@ -202,6 +204,8 @@ public class ProxyService {
         } else {
             Logger.info("Note deletion failure");
         }
+
+
 
     }
 }

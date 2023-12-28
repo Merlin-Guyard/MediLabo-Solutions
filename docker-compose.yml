@@ -1,7 +1,19 @@
-version: "1"
+version: "2"
 services:
   db-mysql:
     image: mysql
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - db:/var/lib/mongo
+
+  db-mongo:
+    image: mongo
     restart: unless-stopped
     env_file: ./.env
     environment:
@@ -14,7 +26,7 @@ services:
 
   app-backend:
     depends_on:
-    - db-mysql
+      - db-mysql
     restart: on-failure
     build:
       context: ./medilabosolutions-backend
@@ -44,6 +56,9 @@ services:
       - spring.cloud.gateway.routes[1].id=frontend-route
       - spring.cloud.gateway.routes[1].uri=http://app-frontend:8082
       - spring.cloud.gateway.routes[1].predicates[0]=Path=/frontend/**
+      - spring.cloud.gateway.routes[2].id=notes-route
+      - spring.cloud.gateway.routes[2].uri=http://app-notes:8083
+      - spring.cloud.gateway.routes[2].predicates[0]=Path=/notes/**
     ports:
       - 8080:8080
 
@@ -58,6 +73,20 @@ services:
       - url=http://app-gateway:8080/
     ports:
       - 8082:8082
+
+  app-notes:
+    depends_on:
+      - db-mongo
+    restart: on-failure
+    build:
+      context: ./medilabosolutions-notes
+      dockerfile: Dockerfile
+    env_file: ./.env
+    image: notes
+    environment:
+      - spring.data.mongodb.database=medilabosolutions_mdb
+    ports:
+      - 8083:8083
 
 volumes:
   db:

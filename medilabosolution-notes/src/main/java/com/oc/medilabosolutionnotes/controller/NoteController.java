@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,9 +37,9 @@ public class NoteController {
     @RequestMapping("/testRead")
     public ResponseEntity<List<Note>> testRead() {
         List<Note> notes = noteService.testRead();
-        if (notes.isEmpty()){
+        if (notes.isEmpty()) {
             return ResponseEntity.noContent().build();
-    }
+        }
         return ResponseEntity.ok(notes);
     }
 
@@ -53,9 +54,16 @@ public class NoteController {
     }
 
     @RequestMapping("/getNote/{patientId}")
-    public ResponseEntity<List<Note>> getNote(@PathVariable String patientId) {
-        List<Note> notes = noteService.getNotes(patientId);
-        return ResponseEntity.ok(notes);
+    public ResponseEntity<?> getNote(@PathVariable String patientId) {
+
+        try {
+            List<Note> notes = noteService.getNotes(patientId);
+            return ResponseEntity.ok(notes);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
+
+
     }
 
     @RequestMapping("/deleteNote/{id}")
@@ -66,6 +74,11 @@ public class NoteController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete note");
         }
+    }
+
+    @RequestMapping("/deleteAll")
+    public void deleteAll() {
+        noteService.deleteAll();
     }
 
 

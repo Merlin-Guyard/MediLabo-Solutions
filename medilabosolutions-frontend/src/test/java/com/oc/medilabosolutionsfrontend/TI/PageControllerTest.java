@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.TI;
 
+import com.oc.medilabosolutionsfrontend.Model.Note;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.controller.PageController;
@@ -229,6 +230,29 @@ public class PageControllerTest {
         });
 
         assertTrue(exception.getMessage().contains("Patient not found with id: " + patientList.get(0).getId()));
+    }
+
+    @Test
+    void testDeleteNote() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Note note = new Note("1", "plop");
+
+        proxyService.addNotes(note);
+        List<Note> noteList = proxyService.getNotes(1);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/deleteNote/" + noteList.get(0).getId()))
+                .andExpect(status().isFound())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            proxyService.getNotes(1);
+        });
+
+        assertTrue(exception.getMessage().contains("Note not found for patient with id: 1"));
     }
 
 }

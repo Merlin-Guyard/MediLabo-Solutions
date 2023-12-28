@@ -122,7 +122,7 @@ public class PageController {
     public String addNotes(@PathVariable("patientId") Integer patientId, @ModelAttribute("note") Note note, Model model) {
         if (proxyService.verify()) {
             note.setPatientId(String.valueOf(patientId));
-            proxyService.updateNotes(note);
+            proxyService.addNotes(note);
             return "redirect:/frontend/view/" + patientId;
         }
         return "redirect:/frontend/login";

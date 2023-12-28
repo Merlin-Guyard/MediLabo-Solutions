@@ -18,12 +18,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
 
 @Service
 public class ProxyService {
@@ -145,41 +143,41 @@ public class ProxyService {
     }
 
     public void deleteAll() {
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
+        ResponseEntity<String> responseEntity1 = restTemplate.exchange(
                 properties.getUrl() + "backend/deleteAll",
                 DELETE,
                 null,
                 String.class
         );
 
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Patient deletion success");
-        } else {
-            Logger.info("Patient deletion failure");
-        }
+        ResponseEntity<String> responseEntity2 = restTemplate.exchange(
+                properties.getUrl() + "notes/deleteAll",
+                DELETE,
+                null,
+                String.class
+        );
     }
 
     public List<Note> getNotes(Integer patientId) {
         String url = properties.getUrl() + "notes/getNote/" + patientId;
 
-        ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Note>>() {}
-        );
+        try {
+            ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<Note>>() {}
+            );
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Fetching notes success");
             return responseEntity.getBody();
-        } else {
-            Logger.info("Fetching notes failure");
-            return Collections.emptyList();
+        } catch (HttpClientErrorException.NotFound notFoundException) {
+            Logger.info("Note not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note not found for patient with id: " +patientId);
         }
+
     }
 
-    public void updateNotes(Note note) {
+    public void addNotes(Note note) {
         String url = properties.getUrl() + "notes/addNote";
 
         try {
@@ -205,6 +203,8 @@ public class ProxyService {
         } else {
             Logger.info("Note deletion failure");
         }
+
+
 
     }
 }

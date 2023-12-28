@@ -28,6 +28,7 @@ public class NoteService {
     }
 
     public void addNote(Note note) {
+        note.setId(null);
         noteRepository.save(note);
     }
 

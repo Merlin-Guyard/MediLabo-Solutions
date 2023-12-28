@@ -64,7 +64,7 @@ public class PageController {
     }
 
     @GetMapping("/deleteNote/{id}")
-    public String deleteNote(@PathVariable("id") Integer id, Model model) {
+    public String deleteNote(@PathVariable("id") String id, Model model) {
 
         if (proxyService.verify()) {
             proxyService.deleteNoteById(id);
@@ -123,7 +123,7 @@ public class PageController {
         if (proxyService.verify()) {
             note.setPatientId(String.valueOf(patientId));
             proxyService.updateNotes(note);
-            return "redirect:/frontend/view/{id}";
+            return "redirect:/frontend/view/" + patientId;
         }
         return "redirect:/frontend/login";
     }

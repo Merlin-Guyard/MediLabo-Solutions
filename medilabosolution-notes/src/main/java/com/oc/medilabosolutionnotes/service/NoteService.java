@@ -28,6 +28,7 @@ public class NoteService {
     }
 
     public void addNote(Note note) {
+        note.setId(null);
         noteRepository.save(note);
     }
 
@@ -36,5 +37,9 @@ public class NoteService {
         return notes.stream()
                 .filter(note -> note.getPatientId().equals(patientId))
                 .collect(Collectors.toList());
+    }
+
+    public void deleteById(String id) {
+        noteRepository.deleteById(id);
     }
 }

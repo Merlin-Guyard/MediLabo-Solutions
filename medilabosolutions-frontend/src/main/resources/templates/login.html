@@ -5,7 +5,13 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 </head>
 <body>
-<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+<div class="container">
+    <div style="text-align: center;">
+        <img src="/images/medilabosolutions_logo.JPG" alt="My Image" style="width: 100%; max-width: 400px; margin: 0 auto; display: block;">
+    </div>
+</div>
+<div class="container d-flex justify-content-center align-items-center">
+
     <div class="col-md-4">
         <form action="/frontend/connect" method="post" th:object="${user}" class="form">
             <div class="form-group">

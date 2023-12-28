@@ -53,11 +53,21 @@ public class PageController {
         return "redirect:/frontend/login";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deletePatientPage(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/deletePatient/{id}")
+    public String deletePatient(@PathVariable("id") Integer id, Model model) {
 
         if (proxyService.verify()) {
-            proxyService.deleteById(id);
+            proxyService.deletePatientById(id);
+            return "redirect:/frontend/home";
+        }
+        return "redirect:/frontend/login";
+    }
+
+    @GetMapping("/deleteNote/{id}")
+    public String deleteNote(@PathVariable("id") String id, Model model) {
+
+        if (proxyService.verify()) {
+            proxyService.deleteNoteById(id);
             return "redirect:/frontend/home";
         }
         return "redirect:/frontend/login";
@@ -95,25 +105,25 @@ public class PageController {
         return "redirect:/frontend/login";
     }
 
-    @GetMapping("/updateNotes/{id}")
-    public String updateNotesPage(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/addNotes/{id}")
+    public String addNotesPage(@PathVariable("id") Integer id, Model model) {
         if (proxyService.verify()) {
             Patient patient = proxyService.getPatient(id);
             List<Note> notes = proxyService.getNotes(patient.getId());
             model.addAttribute("patient", patient);
             model.addAttribute("notes", notes);
             model.addAttribute("note", new Note());  // Ajout de la nouvelle note au modèle
-            return "updateNotes";
+            return "addNotes";
         }
         return "redirect:/frontend/login";
     }
 
-    @PostMapping("/updateNotes/{id}")
-    public String updateNotes(@PathVariable("id") Integer id, @ModelAttribute("note") Note note, Model model) {
+    @PostMapping("/addNotes/{patientId}")
+    public String addNotes(@PathVariable("patientId") Integer patientId, @ModelAttribute("note") Note note, Model model) {
         if (proxyService.verify()) {
-            note.setPatientId(String.valueOf(id));
+            note.setPatientId(String.valueOf(patientId));
             proxyService.updateNotes(note);
-            return "redirect:/frontend/view/{id}";
+            return "redirect:/frontend/view/" + patientId;
         }
         return "redirect:/frontend/login";
     }

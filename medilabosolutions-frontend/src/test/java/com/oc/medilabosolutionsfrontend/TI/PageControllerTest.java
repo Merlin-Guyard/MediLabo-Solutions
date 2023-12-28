@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -127,14 +128,19 @@ public class PageControllerTest {
         );
 
         proxyService.addPatient(patient);
+        patient.setFirstName("Bob");
         List<Patient> patientList = proxyService.getAllPatient();
 
-        patient.setFirstName("Bob");
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/view/" + patientList.get(0).getId())
+        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/updatePatient/" + patientList.get(0).getId())
                 .flashAttr("patient", patient))
                 .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/home"));
+
+        List<Patient> updatepatientList = proxyService.getAllPatient();
+
+        assertEquals(updatepatientList.get(0).getFirstName(), "Bob");
+        assertEquals(updatepatientList.get(0).getLastName(), "Doe");
     }
 
     @Test

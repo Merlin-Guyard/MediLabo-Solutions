@@ -54,7 +54,9 @@
                             </thead>
                             <tbody>
                             <tr th:each="note : ${notes}">
-                                <td th:text="${note.note}"></td>
+                                <td>
+                                    <pre th:text="${note.note}"></pre>
+                                </td>
                                 <td style="width: 15%" class="text-center">
                                     <a th:href="@{/frontend/deleteNote/{id}(id=${note.id})}">Delete</a>
                                 </td>

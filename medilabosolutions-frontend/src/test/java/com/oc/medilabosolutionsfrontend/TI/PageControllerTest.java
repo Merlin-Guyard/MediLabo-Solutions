@@ -48,6 +48,13 @@ public class PageControllerTest {
     }
 
     @Test
+    public void loginPage() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/login"))
+                .andExpect(MockMvcResultMatchers.view().name("login"));
+    }
+
+    @Test
     public void loginSuccessTest() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/frontend/connect")

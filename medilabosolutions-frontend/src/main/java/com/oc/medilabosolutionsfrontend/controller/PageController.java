@@ -68,7 +68,7 @@ public class PageController {
 
         if (proxyService.verify()) {
             proxyService.deleteNoteById(id);
-            return "view";
+            return "redirect:/frontend/home";
         }
         return "redirect:/frontend/login";
     }
@@ -118,10 +118,10 @@ public class PageController {
         return "redirect:/frontend/login";
     }
 
-    @PostMapping("/addNotes/{id}")
-    public String addNotes(@PathVariable("id") Integer id, @ModelAttribute("note") Note note, Model model) {
+    @PostMapping("/addNotes/{patientId}")
+    public String addNotes(@PathVariable("patientId") Integer patientId, @ModelAttribute("note") Note note, Model model) {
         if (proxyService.verify()) {
-            note.setPatientId(String.valueOf(id));
+            note.setPatientId(String.valueOf(patientId));
             proxyService.updateNotes(note);
             return "redirect:/frontend/view/{id}";
         }

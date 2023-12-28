@@ -16,8 +16,7 @@
         <img src="/images/medilabosolutions_logo.JPG" alt="My Image" style="width: 100%; max-width: 400px; margin: 0 auto; display: block;">
     </div>
 
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="mx-auto">
+
             <div class="row">
                 <div class="col">
                     <h3>Patient:</h3>
@@ -63,21 +62,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <div th:unless="${notes}">
-                        <p>No notes available.</p>
-                    </div>
-
                     <div>
-                        <a th:href="@{/frontend/addNotes/{id}(id=${patient.id})}" class="btn btn-primary">Add Notes</a>
+                        <a th:href="@{/frontend/addNotes/{patientId}(patientId=${patient.id})}" class="btn btn-primary">Add Notes</a>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <div>
-                    <a class="btn btn-danger btn-sm" href="/frontend/home">Cancel</a>
-                </div>
-            </div>
+    <div class="form-group d-flex justify-content-center align-items-center mt-4">
+        <div>
+            <a class="btn btn-danger btn-sm"  href="/frontend/home">Cancel</a>
         </div>
     </div>
 </div>

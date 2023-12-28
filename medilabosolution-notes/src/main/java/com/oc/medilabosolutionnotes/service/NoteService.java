@@ -38,7 +38,7 @@ public class NoteService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Integer id) {
-        noteRepository.deleteById(String.valueOf(id));
+    public void deleteById(String id) {
+        noteRepository.deleteById(id);
     }
 }

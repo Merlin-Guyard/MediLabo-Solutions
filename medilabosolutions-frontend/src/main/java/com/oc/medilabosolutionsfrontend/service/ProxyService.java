@@ -188,7 +188,7 @@ public class ProxyService {
     }
 
     public void deleteNoteById(Integer id) {
-        String url = properties.getUrl() + "notes/deleteNote/" + id;
+        String url = properties.getUrl() + "notes/deleteNote/" + id.toString();
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url,

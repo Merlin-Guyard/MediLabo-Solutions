@@ -15,6 +15,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -184,9 +188,7 @@ public class PageControllerTest {
                 });
     }
 
-    //TODO : error not found, found, empty list it goes in wrong if
     @Test
-    @Disabled
     void testDeletePatient() throws Exception {
 
         User user = new User("doctor", "mdp");
@@ -205,12 +207,15 @@ public class PageControllerTest {
         List<Patient> patientList = proxyService.getAllPatient();
 
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/delete/" + patientList.get(0).getId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/deletePatient/" + patientList.get(0).getId()))
                 .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
 
-        assertEquals(proxyService.getAllPatient().size(),0);
-    }
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            proxyService.getPatient(patientList.get(0).getId());
+        });
 
+        assertTrue(exception.getMessage().contains("Patient not found with id: " + patientList.get(0).getId()));
+    }
 
 }

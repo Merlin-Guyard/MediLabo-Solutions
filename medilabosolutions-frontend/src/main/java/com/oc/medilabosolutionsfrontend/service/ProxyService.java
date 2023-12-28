@@ -10,9 +10,12 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.Arrays;
@@ -101,19 +104,19 @@ public class ProxyService {
     public Patient getPatient(Integer id) {
         String url = properties.getUrl() + "backend/getPatient/" + id;
 
-        ResponseEntity<Patient> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                Patient.class
-        );
+        try {
+            ResponseEntity<Patient> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    Patient.class
+            );
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Fetching patient success");
-            return responseEntity.getBody();
-        } else {
-            Logger.info("Fetching patient failure");
-            return null;
+                Logger.info("Fetching patient success");
+                return responseEntity.getBody();
+        } catch (HttpClientErrorException.NotFound notFoundException) {
+            Logger.info("Patient not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found with id: " + id);
         }
     }
 

@@ -5,24 +5,25 @@ services:
     restart: unless-stopped
     env_file: ./.env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-    ports:
-      - "27017:27017"
-    volumes:
-      - db:/var/lib/mongo
-
-  db-mongo:
-    image: mongo
-    restart: unless-stopped
-    env_file: ./.env
-    environment:
       MYSQLDB_ROOT_PASSWORD: root
       MYSQLDB_DATABASE: root
     ports:
       - 3310:3306
     volumes:
       - db:/var/lib/mysql
+
+  db-mongo:
+    image: mongo
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD : root
+      MONGO_INITDB_DATABASE: medilabosolutions_mdb
+    ports:
+      - 27017:27017
+    volumes:
+      - db:/var/lib/mongo
 
   app-backend:
     depends_on:
@@ -84,9 +85,9 @@ services:
     env_file: ./.env
     image: notes
     environment:
-      - spring.data.mongodb.database=medilabosolutions_mdb
+      - spring.data.mongodb.uri=mongodb://$${MONGO_INITDB_ROOT_USERNAME:root}:$${MONGO_INITDB_ROOT_PASSWORD:root}@$${MONGO_HOST:db-mongo}:$${MONGO_PORT:27017}/history?authSource=admin
     ports:
-      - 8083:8083
+      - 8083:8083      
 
 volumes:
   db:

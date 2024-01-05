@@ -23,9 +23,9 @@ public class ReportService {
         List<Note> notes = proxyService.getNotes(patientId);
         Boolean age = patient.isOlderThan30yo(patient.getBirthdate());
         List<String> keywords = Arrays.asList(
-                "Hémoglobine A1C", "Microalbumine", "Taille", "Poids",
-                "Fumeur", "Fumeuse", "Anormal", "Cholestérol",
-                "Vertiges", "Rechute", "Réaction", "Anticorps"
+                "hémoglobine a1c", "microalbumine", "taille", "poids",
+                "fumeur", "fumeuse", "anormale", "cholestérol",
+                "vertiges", "rechute", "réaction", "anticorps", "vertige", "fumer"
         );
 
         int risk = 0;
@@ -36,7 +36,7 @@ public class ReportService {
 
         for (Note note : notes) {
             for (String keyword : keywords) {
-                if (note.getNote().contains(keyword)) {
+                if (note.getNote().toLowerCase().contains(keyword)) {
                     foundKeywords.add(keyword);
                 }
             }

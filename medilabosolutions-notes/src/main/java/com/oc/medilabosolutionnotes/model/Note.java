@@ -20,6 +20,11 @@ public class Note {
     public Note() {
     }
 
+    public Note(String patientId, String note) {
+        this.patientId = patientId;
+        this.note = note;
+    }
+
     public Note(String id, String patientId, String note) {
         this.id = id;
         this.patientId = patientId;

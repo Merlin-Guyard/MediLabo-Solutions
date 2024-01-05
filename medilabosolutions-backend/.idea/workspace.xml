@@ -5,19 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/controller/ReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Note.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Properties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ProxyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/view.html" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/model/Patient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ReportService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +42,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Srpint2docker",
+    "git-widget-placeholder": "feature/report",
     "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/pom.xml",
     "settings.editor.selected.configurable": "MavenSettings"
   }

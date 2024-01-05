@@ -2,6 +2,9 @@ package com.medilabosolutionsbackend.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 @Table(name = "patients")
 public class Patient {
@@ -18,7 +21,7 @@ public class Patient {
     private String lastName;
 
     @Column(name = "birthdate")
-    private String birthdate;
+    private LocalDate birthdate;
 
     @Column(name = "gender")
     private String gender;
@@ -32,7 +35,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String firstName, String lastName, String birthdate, String gender, String postalAddress, String phoneNumber) {
+    public Patient(String firstName, String lastName, LocalDate birthdate, String gender, String postalAddress, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -65,11 +68,11 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public String getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

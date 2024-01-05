@@ -1,6 +1,9 @@
 package com.oc.medilabosolutionsreport.model;
 
 
+import java.time.LocalDate;
+import java.time.Period;
+
 public class Patient {
 
     private int id;
@@ -9,7 +12,7 @@ public class Patient {
 
     private String lastName;
 
-    private String birthdate;
+    private LocalDate birthdate;
 
     private String gender;
 
@@ -20,7 +23,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String firstName, String lastName, String birthdate, String gender, String postalAddress, String phoneNumber) {
+    public Patient(String firstName, String lastName, LocalDate birthdate, String gender, String postalAddress, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -53,11 +56,11 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public String getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -83,5 +86,11 @@ public class Patient {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isOlderThan30yo(LocalDate birthdate){
+        LocalDate todayDate = LocalDate.now();
+
+        return Period.between(birthdate, todayDate).getYears() >= 30;
     }
 }

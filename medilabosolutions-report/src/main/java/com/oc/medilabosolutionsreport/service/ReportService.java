@@ -21,6 +21,7 @@ public class ReportService {
     public String makeReport(int patientId) {
         Patient patient = proxyService.getPatient(patientId);
         List<Note> notes = proxyService.getNotes(patientId);
+        Boolean age = patient.isOlderThan30yo(patient.getBirthdate());
         List<String> keywords = Arrays.asList(
                 "Hémoglobine A1C", "Microalbumine", "Taille", "Poids",
                 "Fumeur", "Fumeuse", "Anormal", "Cholestérol",
@@ -28,7 +29,7 @@ public class ReportService {
         );
 
         int risk = 0;
-        String report;
+        String report = "None";
 
         Set<String> foundKeywords = new HashSet<>();
 
@@ -43,14 +44,12 @@ public class ReportService {
 
         risk += foundKeywords.size();
 
-        if (risk>=2 && risk <=5) {
-            report = "Borderline";
-        } else if (false){
-            report = "In Danger";
-        } else if (false){
+        if (risk>=5 && !age && patient.getGender().equals("M") || risk>=7 && !age && patient.getGender().equals("F") || risk>=8 && age) {
             report = "Early onset";
-        } else {
-            report = "None";
+        } else if (risk>=3 && !age && patient.getGender().equals("M") || risk>=4 && !age && patient.getGender().equals("F") || risk>=6 && risk<=7 && age){
+            report = "In Danger";
+        } else if (risk >=2 && risk<=5){
+            report = "Early onset";
         }
 
         return report;

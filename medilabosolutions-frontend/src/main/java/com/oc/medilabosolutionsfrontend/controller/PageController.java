@@ -80,6 +80,7 @@ public class PageController {
             Patient patient = proxyService.getPatient(id);
             model.addAttribute("patient", patient);
             model.addAttribute("notes", proxyService.getNotes(patient.getId()));
+            model.addAttribute("report", proxyService.getReport(patient.getId()));
             return "view";
         }
         return "redirect:/frontend/login";

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -29,10 +30,12 @@ public class Controller {
 
     @RequestMapping("/test")
     public ResponseEntity<String> addPatients() {
+
+
         Patient patient1 = new Patient(
                 "TestNone",
                 "Test",
-                "1966-12-31",
+                LocalDate.parse("1966-12-31"),
                 "F",
                 "1 Brookside St",
                 "100-222-3333"
@@ -41,7 +44,7 @@ public class Controller {
         Patient patient2 = new Patient(
                 "TestBorderline",
                 "Test",
-                "1945-06-24",
+                LocalDate.parse("1945-06-24"),
                 "M",
                 "2 High St",
                 "200-333-4444"
@@ -50,7 +53,7 @@ public class Controller {
         Patient patient3 = new Patient(
                 "TestInDanger",
                 "Test",
-                "2004-06-18",
+                LocalDate.parse("2004-06-18"),
                 "M",
                 "3 Club Road",
                 "300-444-5555"
@@ -59,7 +62,7 @@ public class Controller {
         Patient patient4 = new Patient(
                 "TestEarlyOnset",
                 "Test",
-                "2002-06-28",
+                LocalDate.parse("2002-06-28"),
                 "F",
                 "4 Valley Dr",
                 "400-555-6666"

@@ -1,35 +1,23 @@
-package com.medilabosolutionsbackend.model;
+package com.oc.medilabosolutionsreport.model;
 
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.Period;
 
-@Entity
-@Table(name = "patients")
 public class Patient {
 
-    @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @Column(name = "gender")
     private String gender;
 
-    @Column(name = "postalAddress")
     private String postalAddress;
 
-    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     public Patient() {
@@ -98,5 +86,11 @@ public class Patient {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isOlderThan30yo(LocalDate birthdate){
+        LocalDate todayDate = LocalDate.now();
+
+        return Period.between(birthdate, todayDate).getYears() >= 30;
     }
 }

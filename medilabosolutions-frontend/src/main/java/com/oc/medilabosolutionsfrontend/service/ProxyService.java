@@ -208,4 +208,23 @@ public class ProxyService {
 
 
     }
+
+    public String getReport(Integer patientId) {
+        String url = properties.getUrl() + "report/getReport/" + patientId;
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<String>() {}
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Fetching report success");
+            return responseEntity.getBody();
+        } else {
+            Logger.info("Fetching report failure");
+            return "";
+        }
+    }
 }

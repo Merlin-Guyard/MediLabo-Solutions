@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.TI;
 
+import com.oc.medilabosolutionsfrontend.Model.Note;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.User;
 import com.oc.medilabosolutionsfrontend.controller.PageController;
@@ -15,6 +16,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -40,6 +46,13 @@ public class PageControllerTest {
     @BeforeEach
     public void initEach() throws Exception {
         proxyService.deleteAll();
+    }
+
+    @Test
+    public void loginPage() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/login"))
+                .andExpect(MockMvcResultMatchers.view().name("login"));
     }
 
     @Test
@@ -123,14 +136,19 @@ public class PageControllerTest {
         );
 
         proxyService.addPatient(patient);
+        patient.setFirstName("Bob");
         List<Patient> patientList = proxyService.getAllPatient();
 
-        patient.setFirstName("Bob");
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/view/" + patientList.get(0).getId())
+        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/updatePatient/" + patientList.get(0).getId())
                 .flashAttr("patient", patient))
                 .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/home"));
+
+        List<Patient> updatepatientList = proxyService.getAllPatient();
+
+        assertEquals(updatepatientList.get(0).getFirstName(), "Bob");
+        assertEquals(updatepatientList.get(0).getLastName(), "Doe");
     }
 
     @Test
@@ -184,9 +202,7 @@ public class PageControllerTest {
                 });
     }
 
-    //TODO : error not found, found, empty list it goes in wrong if
     @Test
-    @Disabled
     void testDeletePatient() throws Exception {
 
         User user = new User("doctor", "mdp");
@@ -205,12 +221,63 @@ public class PageControllerTest {
         List<Patient> patientList = proxyService.getAllPatient();
 
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/delete/" + patientList.get(0).getId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/deletePatient/" + patientList.get(0).getId()))
                 .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
 
-        assertEquals(proxyService.getAllPatient().size(),0);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            proxyService.getPatient(patientList.get(0).getId());
+        });
+
+        assertTrue(exception.getMessage().contains("Patient not found with id: " + patientList.get(0).getId()));
     }
 
+    @Test
+    void testAddNote() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Patient patient = new Patient(
+                "John",
+                "Doe",
+                "1990-01-01",
+                "M",
+                "123 Main St",
+                "123-456-7890"
+        );
+
+        proxyService.addPatient(patient);
+        List<Patient> patientList = proxyService.getAllPatient();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/frontend/addNotes/"+ patientList.get(0).getId())
+                        .param("patientId", "1")
+                        .param("note", "plop"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/view/"+ patientList.get(0).getId()));
+
+        List<Note> notes = proxyService.getNotes(patientList.get(0).getId());
+
+        assertEquals(notes.get(0).getNote(), "plop");
+    }
+
+    @Test
+    void testDeleteNote() throws Exception {
+
+        User user = new User("doctor", "mdp");
+        proxyService.login(user);
+
+        Note note = new Note("1", "plop");
+
+        proxyService.addNotes(note);
+        List<Note> noteList = proxyService.getNotes(1);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/frontend/deleteNote/" + noteList.get(0).getId()))
+                .andExpect(status().isFound())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
+
+        assertEquals(proxyService.getNotes(1).size(),0);
+    }
 
 }

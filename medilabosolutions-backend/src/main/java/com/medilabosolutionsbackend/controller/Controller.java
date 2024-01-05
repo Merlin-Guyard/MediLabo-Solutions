@@ -6,6 +6,7 @@ import org.pmw.tinylog.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -92,9 +93,13 @@ public class Controller {
     }
 
     @RequestMapping("/getPatient/{id}")
-    public ResponseEntity<Patient> getPatient(@PathVariable Integer id) {
-        Patient patient = patientService.getPatientById(id);
-        return ResponseEntity.ok(patient);
+    public ResponseEntity<?> getPatient(@PathVariable Integer id) {
+        try {
+            Patient patient = patientService.getPatientById(id);
+            return ResponseEntity.ok(patient);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        }
     }
 
     @RequestMapping("/updatePatient/{id}")

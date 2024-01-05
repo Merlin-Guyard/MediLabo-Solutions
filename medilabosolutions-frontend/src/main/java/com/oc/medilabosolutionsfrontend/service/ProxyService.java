@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.service;
 
+import com.oc.medilabosolutionsfrontend.Model.Note;
 import com.oc.medilabosolutionsfrontend.Model.Patient;
 import com.oc.medilabosolutionsfrontend.Model.Properties;
 import com.oc.medilabosolutionsfrontend.Model.User;
@@ -9,9 +10,12 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.Collections;
@@ -78,7 +82,7 @@ public class ProxyService {
         }
     }
 
-    public void deleteById(Integer id) {
+    public void deletePatientById(Integer id) {
         String url = properties.getUrl() + "backend/deletePatient/" + id;
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
@@ -98,19 +102,19 @@ public class ProxyService {
     public Patient getPatient(Integer id) {
         String url = properties.getUrl() + "backend/getPatient/" + id;
 
-        ResponseEntity<Patient> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                Patient.class
-        );
+        try {
+            ResponseEntity<Patient> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    Patient.class
+            );
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Fetching patient success");
-            return responseEntity.getBody();
-        } else {
-            Logger.info("Fetching patient failure");
-            return null;
+                Logger.info("Fetching patient success");
+                return responseEntity.getBody();
+        } catch (HttpClientErrorException.NotFound notFoundException) {
+            Logger.info("Patient not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found with id: " + id);
         }
     }
 
@@ -139,18 +143,69 @@ public class ProxyService {
     }
 
     public void deleteAll() {
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
+        ResponseEntity<String> responseEntity1 = restTemplate.exchange(
                 properties.getUrl() + "backend/deleteAll",
                 DELETE,
                 null,
                 String.class
         );
 
+        ResponseEntity<String> responseEntity2 = restTemplate.exchange(
+                properties.getUrl() + "notes/deleteAll",
+                DELETE,
+                null,
+                String.class
+        );
+    }
+
+    public List<Note> getNotes(Integer patientId) {
+        String url = properties.getUrl() + "notes/getNote/" + patientId;
+
+        ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Note>>() {}
+        );
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Patient deletion success");
+            Logger.info("Fetching notes success");
+            return responseEntity.getBody();
         } else {
-            Logger.info("Patient deletion failure");
+            Logger.info("Fetching notes failure");
+            return Collections.emptyList();
         }
+
+    }
+
+    public void addNotes(Note note) {
+        String url = properties.getUrl() + "notes/addNote";
+
+        try {
+            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(note), Void.class);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public void deleteNoteById(String id) {
+        String url = properties.getUrl() + "notes/deleteNote/" + id;
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                url,
+                DELETE,
+                null,
+                String.class
+        );
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            Logger.info("Note deletion success");
+        } else {
+            Logger.info("Note deletion failure");
+        }
+
+
+
     }
 }

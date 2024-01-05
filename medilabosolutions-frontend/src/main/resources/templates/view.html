@@ -4,47 +4,75 @@
     <meta charset="utf-8"/>
     <title>VIEW</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <style>
+        .bold-label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="mx-auto">
-                <div class="form-group">
-                    <label>First Name</label>
-                    <span th:text="${patient.firstName}" class="form-control"></span>
-                </div>
+    <div style="text-align: center;">
+        <img src="/images/medilabosolutions_logo.JPG" alt="My Image" style="width: 100%; max-width: 400px; margin: 0 auto; display: block;">
+    </div>
 
-                <div class="form-group">
-                    <label>Last Name</label>
-                    <span th:text="${patient.lastName}" class="form-control"></span>
-                </div>
 
-                <div class="form-group">
-                    <label>Birthdate</label>
-                    <span th:text="${patient.birthdate}" class="form-control"></span>
-                </div>
+            <div class="row">
+                <div class="col">
+                    <h3>Patient:</h3>
+                    <label class="bold-label">First Name:</label><br>
+                    <span th:text="${patient.firstName}"></span><br>
 
-                <div class="form-group">
-                    <label>Gender</label>
-                    <span th:text="${patient.gender}" class="form-control"></span>
-                </div>
+                    <label class="bold-label">Last Name:</label><br>
+                    <span th:text="${patient.lastName}"></span><br>
 
-                <div class="form-group">
-                    <label>Postal Address</label>
-                    <span th:text="${patient.postalAddress}" class="form-control"></span>
-                </div>
+                    <label class="bold-label">Birthdate:</label><br>
+                    <span th:text="${patient.birthdate}"></span><br>
 
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <span th:text="${patient.phoneNumber}" class="form-control"></span>
-                </div>
+                    <label class="bold-label">Gender:</label><br>
+                    <span th:text="${patient.gender}"></span><br>
 
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <a class="btn btn-danger btn-sm" href="/frontend/home">Cancel</a>
-                        <a th:href="@{/frontend/update/{id}(id=${patient.id})}" class="btn btn-primary">Update</a>
+                    <label class="bold-label">Postal Address:</label><br>
+                    <span th:text="${patient.postalAddress}"></span><br>
+
+                    <label class="bold-label">Phone Number:</label><br>
+                    <span th:text="${patient.phoneNumber}"></span><br>
+
+                    <div>
+                        <a th:href="@{/frontend/updatePatient/{id}(id=${patient.id})}" class="btn btn-primary">Update Patient</a>
                     </div>
                 </div>
+
+                <div class="col">
+                    <div th:if="${notes}">
+                        <h3>Notes:</h3>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Note</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="note : ${notes}">
+                                <td>
+                                    <pre th:text="${note.note}"></pre>
+                                </td>
+                                <td style="width: 15%" class="text-center">
+                                    <a th:href="@{/frontend/deleteNote/{id}(id=${note.id})}">Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <a th:href="@{/frontend/addNotes/{patientId}(patientId=${patient.id})}" class="btn btn-primary">Add Notes</a>
+                    </div>
+                </div>
+            </div>
+
+    <div class="form-group d-flex justify-content-center align-items-center mt-4">
+        <div>
+            <a class="btn btn-danger btn-sm"  href="/frontend/home">Cancel</a>
         </div>
     </div>
 </div>

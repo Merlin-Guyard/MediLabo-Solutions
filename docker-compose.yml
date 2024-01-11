@@ -60,6 +60,9 @@ services:
       - spring.cloud.gateway.routes[2].id=notes-route
       - spring.cloud.gateway.routes[2].uri=http://app-notes:8083
       - spring.cloud.gateway.routes[2].predicates[0]=Path=/notes/**
+      - spring.cloud.gateway.routes[3].id=report-route
+      - spring.cloud.gateway.routes[3].uri=http://app-report:8084
+      - spring.cloud.gateway.routes[3].predicates[0]=Path=/report/**
     ports:
       - 8080:8080
 

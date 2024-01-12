@@ -82,14 +82,8 @@ public class PageController {
             Patient patient = proxyService.getPatient(id);
             model.addAttribute("patient", patient);
 
-            try {
-                List<Note> notes = proxyService.getNotes(patient.getId());
-                model.addAttribute("notes", notes);
-            } catch (NotesFetchException e) {
-                Logger.error("Error fetching notes", e);
-                model.addAttribute("notesFetchError", e.getErrorMessage());
-                model.addAttribute("notes", Collections.emptyList());
-            }
+            List<Note> notes = proxyService.getNotes(patient.getId());
+            model.addAttribute("notes", notes);
 
             model.addAttribute("report", proxyService.getReport(patient.getId()));
             return "view";

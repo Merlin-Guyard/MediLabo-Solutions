@@ -63,6 +63,9 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div th:if="${notesFetchError}">
+                            <p style="color: red;" th:text="${notesFetchError}"></p>
+                        </div>
                     </div>
 
                     <h4>Diabetes report:</h4>

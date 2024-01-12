@@ -1,9 +1,6 @@
-package com.oc.medilabosolutionsfrontend.service;
+package com.oc.medilabosolutionsfrontend.dao;
 
-import com.oc.medilabosolutionsfrontend.Model.Note;
-import com.oc.medilabosolutionsfrontend.Model.Patient;
-import com.oc.medilabosolutionsfrontend.Model.Properties;
-import com.oc.medilabosolutionsfrontend.Model.User;
+import com.oc.medilabosolutionsfrontend.model.*;
 import com.oc.medilabosolutionsfrontend.repository.UserRepository;
 import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -161,21 +158,18 @@ public class ProxyService {
     public List<Note> getNotes(Integer patientId) {
         String url = properties.getUrl() + "notes/getNote/" + patientId;
 
+        try {
         ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Note>>() {}
+                new ParameterizedTypeReference<List<Note>>() {
+                }
         );
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Fetching notes success");
             return responseEntity.getBody();
-        } else {
-            Logger.info("Fetching notes failure");
-            return Collections.emptyList();
+        } catch (Exception e){
+            throw new NotesFetchException("Unable to fetch notes for patientId: " + patientId);
         }
-
     }
 
     public void addNotes(Note note) {
@@ -210,19 +204,20 @@ public class ProxyService {
     }
 
     public String getReport(Integer patientId) {
+
         String url = properties.getUrl() + "report/getReport/" + patientId;
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<String>() {}
-        );
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<String>() {}
+            );
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Fetching report success");
-            return responseEntity.getBody();
-        } else {
+                Logger.info("Fetching report success");
+                return responseEntity.getBody();
+        } catch (Exception e) {
             Logger.info("Fetching report failure");
             return "";
         }

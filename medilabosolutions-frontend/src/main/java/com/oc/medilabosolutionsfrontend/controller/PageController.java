@@ -1,10 +1,12 @@
 package com.oc.medilabosolutionsfrontend.controller;
 
-import com.oc.medilabosolutionsfrontend.Model.Note;
-import com.oc.medilabosolutionsfrontend.Model.Patient;
-import com.oc.medilabosolutionsfrontend.Model.User;
-import com.oc.medilabosolutionsfrontend.service.ProxyService;
+import com.oc.medilabosolutionsfrontend.model.Note;
+import com.oc.medilabosolutionsfrontend.model.NotesFetchException;
+import com.oc.medilabosolutionsfrontend.model.Patient;
+import com.oc.medilabosolutionsfrontend.model.User;
+import com.oc.medilabosolutionsfrontend.dao.ProxyService;
 import jakarta.validation.Valid;
+import org.pmw.tinylog.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -75,11 +78,19 @@ public class PageController {
 
     @GetMapping("/view/{id}")
     public String viewPatientPage(@PathVariable("id") Integer id, Model model) {
-
         if (proxyService.verify()) {
             Patient patient = proxyService.getPatient(id);
             model.addAttribute("patient", patient);
-            model.addAttribute("notes", proxyService.getNotes(patient.getId()));
+
+            try {
+                List<Note> notes = proxyService.getNotes(patient.getId());
+                model.addAttribute("notes", notes);
+            } catch (NotesFetchException e) {
+                Logger.error("Error fetching notes", e);
+                model.addAttribute("notesFetchError", e.getErrorMessage());
+                model.addAttribute("notes", Collections.emptyList());
+            }
+
             model.addAttribute("report", proxyService.getReport(patient.getId()));
             return "view";
         }

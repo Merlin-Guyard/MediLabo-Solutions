@@ -1,12 +1,11 @@
 package com.oc.medilabosolutionsfrontend.TI;
 
-import com.oc.medilabosolutionsfrontend.Model.Note;
-import com.oc.medilabosolutionsfrontend.Model.Patient;
-import com.oc.medilabosolutionsfrontend.Model.User;
+import com.oc.medilabosolutionsfrontend.model.Note;
+import com.oc.medilabosolutionsfrontend.model.Patient;
+import com.oc.medilabosolutionsfrontend.model.User;
 import com.oc.medilabosolutionsfrontend.controller.PageController;
-import com.oc.medilabosolutionsfrontend.service.ProxyService;
+import com.oc.medilabosolutionsfrontend.dao.ProxyService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;

@@ -15,6 +15,9 @@ public class Note {
 
     private String note;
 
+    public Note() {
+    }
+
     public Note(String patientId, String note) {
         this.patientId = patientId;
         this.note = note;

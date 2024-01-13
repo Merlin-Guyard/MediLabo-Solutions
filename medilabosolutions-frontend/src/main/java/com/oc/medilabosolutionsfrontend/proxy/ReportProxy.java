@@ -1,7 +1,7 @@
 package com.oc.medilabosolutionsfrontend.proxy;
 
+import com.oc.medilabosolutionsfrontend.Exceptions.ReportCommunicationException;
 import com.oc.medilabosolutionsfrontend.model.Properties;
-import com.oc.medilabosolutionsfrontend.repository.UserRepository;
 import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,6 +22,7 @@ public class ReportProxy {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+    //Get a report
     public String getReport(Integer patientId) {
 
         String url = properties.getUrl() + "report/getReport/" + patientId;
@@ -37,8 +38,7 @@ public class ReportProxy {
             Logger.info("Fetching report success");
             return responseEntity.getBody();
         } catch (Exception e) {
-            Logger.info("Fetching report failure");
-            return "";
+            throw new ReportCommunicationException("Report service is unavailable");
         }
     }
 }

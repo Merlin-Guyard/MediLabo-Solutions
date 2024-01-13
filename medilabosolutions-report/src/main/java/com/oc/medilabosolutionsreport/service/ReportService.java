@@ -1,10 +1,10 @@
 package com.oc.medilabosolutionsreport.service;
 
+import com.oc.medilabosolutionsreport.dao.KeywordFile;
 import com.oc.medilabosolutionsreport.model.Note;
 import com.oc.medilabosolutionsreport.model.Patient;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,19 +14,19 @@ public class ReportService {
 
     private final ProxyService proxyService;
 
-    public ReportService(ProxyService proxyService) {
+    private final KeywordFile keywordFile;
+
+    public ReportService(ProxyService proxyService, KeywordFile keywordFile) {
         this.proxyService = proxyService;
+        this.keywordFile = keywordFile;
     }
 
     public String makeReport(int patientId) {
         Patient patient = proxyService.getPatient(patientId);
         List<Note> notes = proxyService.getNotes(patientId);
         Boolean age = patient.isOlderThan30yo(patient.getBirthdate());
-        List<String> keywords = Arrays.asList(
-                "hémoglobine a1c", "microalbumine", "taille", "poids",
-                "fumeur", "fumeuse", "anormale", "cholestérol",
-                "vertiges", "rechute", "réaction", "anticorps", "vertige", "fumer"
-        );
+
+        List<String> keywords = keywordFile.getKeywords();
 
         int risk = 0;
         String report = "None";

@@ -1,10 +1,10 @@
-package com.oc.medilabosolutionsfrontend.model;
+package com.oc.medilabosolutionsfrontend.Exceptions;
 
-public class NotesFetchException extends RuntimeException {
+public class NoteCommunicationException extends RuntimeException {
 
     private final String errorMessage;
 
-    public NotesFetchException(String errorMessage) {
+    public NoteCommunicationException(String errorMessage) {
         super(errorMessage);
         this.errorMessage = errorMessage;
     }

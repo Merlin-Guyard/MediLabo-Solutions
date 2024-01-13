@@ -1,10 +1,8 @@
 package com.oc.medilabosolutionsfrontend.proxy;
 
 import com.oc.medilabosolutionsfrontend.model.Note;
-import com.oc.medilabosolutionsfrontend.model.NotesFetchException;
+import com.oc.medilabosolutionsfrontend.Exceptions.NoteCommunicationException;
 import com.oc.medilabosolutionsfrontend.model.Properties;
-import com.oc.medilabosolutionsfrontend.repository.UserRepository;
-import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -29,6 +27,7 @@ public class NoteProxy {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+    //Get all note from patient with id
     public List<Note> getNotes(Integer patientId) {
         String url = properties.getUrl() + "notes/getNote/" + patientId;
 
@@ -41,30 +40,36 @@ public class NoteProxy {
                     }
             );
             return responseEntity.getBody();
-        } catch (Exception e){
-            throw new NotesFetchException("Unable to fetch notes for patientId: " + patientId);
+        } catch (Exception e) {
+            throw new NoteCommunicationException("Note service is unavailable");
         }
     }
 
+    //Add a note
     public void addNotes(Note note) {
         String url = properties.getUrl() + "notes/addNote";
 
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(note), Void.class);
         } catch (Exception e) {
-            System.out.println(e);
+            throw new NoteCommunicationException("Note service is unavailable");
         }
 
     }
 
+    //Delete a note with id
     public void deleteNoteById(String id) {
         String url = properties.getUrl() + "notes/deleteNote/" + id;
 
-        ResponseEntity<String> responseEntity = restTemplate.exchange(
-                url,
-                DELETE,
-                null,
-                String.class
-        );
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    url,
+                    DELETE,
+                    null,
+                    String.class
+            );
+        } catch (Exception e) {
+            throw new NoteCommunicationException("Note service is unavailable");
+        }
     }
 }

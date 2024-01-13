@@ -1,10 +1,10 @@
 package com.oc.medilabosolutionsfrontend.Exceptions;
 
-public class NoteCommunicationException extends RuntimeException {
+public class MicroserviceDownException extends RuntimeException {
 
     private final String errorMessage;
 
-    public NoteCommunicationException(String errorMessage) {
+    public MicroserviceDownException(String errorMessage) {
         super(errorMessage);
         this.errorMessage = errorMessage;
     }

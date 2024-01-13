@@ -1,6 +1,6 @@
 package com.oc.medilabosolutionsfrontend.proxy;
 
-import com.oc.medilabosolutionsfrontend.Exceptions.ReportCommunicationException;
+import com.oc.medilabosolutionsfrontend.Exceptions.MicroserviceDownException;
 import com.oc.medilabosolutionsfrontend.model.Properties;
 import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -38,7 +38,7 @@ public class ReportProxy {
             Logger.info("Fetching report success");
             return responseEntity.getBody();
         } catch (Exception e) {
-            throw new ReportCommunicationException("Report service is unavailable");
+            throw new MicroserviceDownException("Report service is unavailable");
         }
     }
 }

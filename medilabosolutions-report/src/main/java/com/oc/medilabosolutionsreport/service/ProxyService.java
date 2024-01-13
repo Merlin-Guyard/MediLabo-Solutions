@@ -49,6 +49,7 @@ public class ProxyService {
     public List<Note> getNotes(Integer patientId) {
         String url = properties.getUrl() + "notes/getNote/" + patientId;
 
+        try {
         ResponseEntity<List<Note>> responseEntity = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -59,6 +60,8 @@ public class ProxyService {
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             return responseEntity.getBody();
         } else {
+            return Collections.emptyList();
+        }} catch (Exception e){
             return Collections.emptyList();
         }
 

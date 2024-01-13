@@ -1,7 +1,7 @@
 package com.oc.medilabosolutionsfrontend.proxy;
 
 import com.oc.medilabosolutionsfrontend.model.Note;
-import com.oc.medilabosolutionsfrontend.Exceptions.NoteCommunicationException;
+import com.oc.medilabosolutionsfrontend.Exceptions.MicroserviceDownException;
 import com.oc.medilabosolutionsfrontend.model.Properties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
@@ -41,7 +41,7 @@ public class NoteProxy {
             );
             return responseEntity.getBody();
         } catch (Exception e) {
-            throw new NoteCommunicationException("Note service is unavailable");
+            throw new MicroserviceDownException("Note service is unavailable");
         }
     }
 
@@ -52,7 +52,7 @@ public class NoteProxy {
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(note), Void.class);
         } catch (Exception e) {
-            throw new NoteCommunicationException("Note service is unavailable");
+            throw new MicroserviceDownException("Note service is unavailable");
         }
 
     }
@@ -69,7 +69,7 @@ public class NoteProxy {
                     String.class
             );
         } catch (Exception e) {
-            throw new NoteCommunicationException("Note service is unavailable");
+            throw new MicroserviceDownException("Note service is unavailable");
         }
     }
 }

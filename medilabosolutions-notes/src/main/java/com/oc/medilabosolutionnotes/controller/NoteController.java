@@ -3,7 +3,6 @@ package com.oc.medilabosolutionnotes.controller;
 import com.oc.medilabosolutionnotes.model.Note;
 import com.oc.medilabosolutionnotes.service.NoteService;
 import org.pmw.tinylog.Logger;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,9 +1,7 @@
 package com.oc.medilabosolutionnotes.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "notes")
@@ -16,9 +14,6 @@ public class Note {
     private String patientId;
 
     private String note;
-
-    public Note() {
-    }
 
     public Note(String patientId, String note) {
         this.patientId = patientId;

@@ -1,4 +1,4 @@
-package com.oc.medilabosolutionsfrontend.Model;
+package com.oc.medilabosolutionsfrontend.model;
 
 
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.oc.medilabosolutionsfrontend.Configuration;
+package com.oc.medilabosolutionsfrontend.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

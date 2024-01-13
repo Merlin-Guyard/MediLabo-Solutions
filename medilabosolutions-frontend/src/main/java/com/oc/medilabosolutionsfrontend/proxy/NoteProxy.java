@@ -66,14 +66,5 @@ public class NoteProxy {
                 null,
                 String.class
         );
-
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Note deletion success");
-        } else {
-            Logger.info("Note deletion failure");
-        }
-
-
-
     }
 }

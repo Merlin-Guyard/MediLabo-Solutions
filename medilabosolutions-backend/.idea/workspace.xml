@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/test/java/com/oc/medilabosolutionnotes/TI/MedilabosolutionNotesApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/test/java/com/oc/medilabosolutionsreport/TU/FileTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/test/java/com/oc/medilabosolutionsreport/TU/ServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/medilabosolutionsbackend/TI/MedilabosolutionsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/medilabosolutionsbackend/TI/MedilabosolutionsApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/java/com/oc/medilabosolutionnotes/controller/NoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/java/com/oc/medilabosolutionnotes/controller/NoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/test/java/com/oc/medilabosolutionnotes/MedilabosolutionNotesApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/test/java/com/oc/medilabosolutionnotes/TI/MedilabosolutionNotesApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/test/java/com/oc/medilabosolutionnotes/TI/MedilabosolutionNotesApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/test/java/com/oc/medilabosolutionsreport/MedilabosolutionsReportApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +48,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/NoteTest",
+    "git-widget-placeholder": "feature/testReport",
     "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/pom.xml",
     "settings.editor.selected.configurable": "MavenSettings"
   }

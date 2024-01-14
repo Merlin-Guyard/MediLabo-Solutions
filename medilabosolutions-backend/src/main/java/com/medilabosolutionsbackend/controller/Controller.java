@@ -3,10 +3,8 @@ package com.medilabosolutionsbackend.controller;
 import com.medilabosolutionsbackend.model.Patient;
 import com.medilabosolutionsbackend.service.PatientService;
 import org.pmw.tinylog.Logger;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class Controller {
 
     //Get patient by id
     @RequestMapping("/getPatient/{id}")
-    public ResponseEntity<?> getPatient(@PathVariable Integer id) {
+    public ResponseEntity<?> getPatientById(@PathVariable Integer id) {
 
         Logger.info("Getting patient with id : ", id);
 

@@ -71,7 +71,7 @@ public class PatientProxy {
         String url = properties.getUrl() + "backend/addPatient";
 
         try {
-            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
+            restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(patient), Void.class);
         } catch (Exception e) {
             throw new MicroserviceDownException("Patient service is unavailable");
         }

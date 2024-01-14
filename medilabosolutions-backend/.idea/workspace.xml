@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/TestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/java/com/oc/medilabosolutionnotes/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/java/com/oc/medilabosolutionnotes/controller/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/medilabosolutionsbackend/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/medilabosolutionsbackend/MedilabosolutionsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/medilabosolutionsbackend/TI/MedilabosolutionsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/PatientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/PatientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +49,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/TestCases",
+    "git-widget-placeholder": "feature/BackendTest",
     "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/pom.xml",
     "settings.editor.selected.configurable": "MavenSettings"
   }
@@ -57,27 +59,85 @@
       <recent name="F:\Programmation\OC\P9_medilabo_solutions\Medilabo-Solutions\medilabosolutions-backend" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MedilabosolutionsApplication">
-    <configuration name="MedilabosolutionsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.MedilabosolutionsApplication" />
+  <component name="RunManager" selected="JUnit.ControllerTest">
+    <configuration name="ControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="medilabosolutions-backend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.medilabosolutionsbackend.*" />
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="sourceFilePath" value="Dockerfile" />
-        </settings>
-      </deployment>
-      <method v="2" />
+    <configuration name="ControllerTest.addPatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="METHOD_NAME" value="addPatientTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.deletePatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="METHOD_NAME" value="deletePatientTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.getPatientByIdTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="METHOD_NAME" value="getPatientByIdTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.updatePatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="METHOD_NAME" value="updatePatientTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
@@ -87,8 +147,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MedilabosolutionsApplication" />
-        <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="JUnit.ControllerTest" />
+        <item itemvalue="JUnit.ControllerTest.addPatientTest" />
+        <item itemvalue="JUnit.ControllerTest.deletePatientTest" />
+        <item itemvalue="JUnit.ControllerTest.updatePatientTest" />
+        <item itemvalue="JUnit.ControllerTest.getPatientByIdTest" />
       </list>
     </recent_temporary>
   </component>
@@ -102,6 +165,17 @@
       <updated>1698144935690</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/medilabosolutionsbackend/TI/MedilabosolutionsApplicationTests.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

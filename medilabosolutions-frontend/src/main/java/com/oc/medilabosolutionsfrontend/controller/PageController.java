@@ -227,15 +227,4 @@ public class PageController {
 
         return "redirect:/frontend/view/" + patientId;
     }
-
-
-    //Send Delete request (testing with Postman only)
-    @DeleteMapping("/deleteAll")
-    public ResponseEntity<String> deleteAll() {
-
-        patientService.deleteAll();
-
-        return new ResponseEntity<>("All patients deleted", HttpStatus.OK);
-    }
-
 }

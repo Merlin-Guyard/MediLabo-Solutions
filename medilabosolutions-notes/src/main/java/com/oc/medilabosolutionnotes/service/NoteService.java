@@ -16,17 +16,6 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    public void testWrite() {
-        Note note = new Note();
-        note.setNote("plop");
-
-        noteRepository.save(note);
-    }
-
-    public List<Note> testRead() {
-        return noteRepository.findAll();
-    }
-
     public void addNote(Note note) {
         note.setId(null);
         noteRepository.save(note);

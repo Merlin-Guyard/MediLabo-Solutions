@@ -1,12 +1,14 @@
 package com.oc.medilabosolutionsfrontend.TI;
 
-import com.oc.medilabosolutionsfrontend.Model.Note;
-import com.oc.medilabosolutionsfrontend.Model.Patient;
-import com.oc.medilabosolutionsfrontend.Model.User;
+import com.oc.medilabosolutionsfrontend.model.Note;
+import com.oc.medilabosolutionsfrontend.model.Patient;
+import com.oc.medilabosolutionsfrontend.model.User;
 import com.oc.medilabosolutionsfrontend.controller.PageController;
-import com.oc.medilabosolutionsfrontend.service.ProxyService;
+import com.oc.medilabosolutionsfrontend.service.GatewayService;
+import com.oc.medilabosolutionsfrontend.service.NoteService;
+import com.oc.medilabosolutionsfrontend.service.PatientService;
+import com.oc.medilabosolutionsfrontend.service.ReportService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,11 +38,21 @@ public class PageControllerTest {
     private PageController pageController;
 
     @Autowired
-    private ProxyService proxyService;
+    private PatientService patientService;
+
+    @Autowired
+    private GatewayService gatewayService;
+
+    @Autowired
+    private ReportService reportService;
+
+    @Autowired
+    private NoteService noteService;
 
     @BeforeEach
     public void initEach() throws Exception {
-        proxyService.deleteAll();
+        patientService.deleteAll();
+        noteService.deleteAll();
     }
 
     @Test
@@ -79,7 +86,7 @@ public class PageControllerTest {
     public void AddViewTest() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/addPatient"))
                 .andExpect(status().isOk())
@@ -90,7 +97,7 @@ public class PageControllerTest {
     void homeViewTest() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/home"))
                 .andExpect(status().isOk())
@@ -101,7 +108,7 @@ public class PageControllerTest {
     void patientViewTest() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         Patient patient = new Patient(
                 "John",
@@ -112,8 +119,8 @@ public class PageControllerTest {
                 "123-456-7890"
         );
 
-        proxyService.addPatient(patient);
-        List<Patient> patientList = proxyService.getAllPatient();
+        patientService.addPatient(patient);
+        List<Patient> patientList = patientService.getAllPatient();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/view/" + patientList.get(0).getId()))
                 .andExpect(status().isOk())
@@ -124,7 +131,7 @@ public class PageControllerTest {
     void patientUpdateTest() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         Patient patient = new Patient(
                 "John",
@@ -135,9 +142,9 @@ public class PageControllerTest {
                 "123-456-7890"
         );
 
-        proxyService.addPatient(patient);
+        patientService.addPatient(patient);
         patient.setFirstName("Bob");
-        List<Patient> patientList = proxyService.getAllPatient();
+        List<Patient> patientList = patientService.getAllPatient();
 
 
         mockMvc.perform(MockMvcRequestBuilders.post("/frontend/updatePatient/" + patientList.get(0).getId())
@@ -145,7 +152,7 @@ public class PageControllerTest {
                 .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/home"));
 
-        List<Patient> updatepatientList = proxyService.getAllPatient();
+        List<Patient> updatepatientList = patientService.getAllPatient();
 
         assertEquals(updatepatientList.get(0).getFirstName(), "Bob");
         assertEquals(updatepatientList.get(0).getLastName(), "Doe");
@@ -155,7 +162,7 @@ public class PageControllerTest {
     void testAddPatient() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/frontend/addPatient")
                         .param("firstName", "John")
@@ -167,7 +174,7 @@ public class PageControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/home"));
 
-        List<Patient> patientList = proxyService.getAllPatient();
+        List<Patient> patientList = patientService.getAllPatient();
 
         assertEquals(patientList.get(0).getFirstName(), "John");
         assertEquals(patientList.get(0).getLastName(), "Doe");
@@ -177,7 +184,7 @@ public class PageControllerTest {
     void testGetPatient() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         Patient patient = new Patient(
                 "John",
@@ -188,7 +195,7 @@ public class PageControllerTest {
                 "123-456-7890"
         );
 
-        proxyService.addPatient(patient);
+        patientService.addPatient(patient);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/home"))
                 .andExpect(status().isOk())
@@ -206,7 +213,7 @@ public class PageControllerTest {
     void testDeletePatient() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         Patient patient = new Patient(
                 "John",
@@ -217,26 +224,23 @@ public class PageControllerTest {
                 "123-456-7890"
         );
 
-        proxyService.addPatient(patient);
-        List<Patient> patientList = proxyService.getAllPatient();
+        patientService.addPatient(patient);
+        List<Patient> patientList = patientService.getAllPatient();
 
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/deletePatient/" + patientList.get(0).getId()))
-                .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
 
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            proxyService.getPatient(patientList.get(0).getId());
-        });
+        patientList = patientService.getAllPatient();
 
-        assertTrue(exception.getMessage().contains("Patient not found with id: " + patientList.get(0).getId()));
+        assertTrue(patientList.isEmpty());
     }
 
     @Test
     void testAddNote() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         Patient patient = new Patient(
                 "John",
@@ -247,8 +251,8 @@ public class PageControllerTest {
                 "123-456-7890"
         );
 
-        proxyService.addPatient(patient);
-        List<Patient> patientList = proxyService.getAllPatient();
+        patientService.addPatient(patient);
+        List<Patient> patientList = patientService.getAllPatient();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/frontend/addNotes/"+ patientList.get(0).getId())
                         .param("patientId", "1")
@@ -256,7 +260,7 @@ public class PageControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/frontend/view/"+ patientList.get(0).getId()));
 
-        List<Note> notes = proxyService.getNotes(patientList.get(0).getId());
+        List<Note> notes = noteService.getNotes(patientList.get(0).getId());
 
         assertEquals(notes.get(0).getNote(), "plop");
     }
@@ -265,19 +269,18 @@ public class PageControllerTest {
     void testDeleteNote() throws Exception {
 
         User user = new User("doctor", "mdp");
-        proxyService.login(user);
+        gatewayService.login(user);
 
         Note note = new Note("1", "plop");
 
-        proxyService.addNotes(note);
-        List<Note> noteList = proxyService.getNotes(1);
+        noteService.addNotes(note);
+        List<Note> noteList = noteService.getNotes(1);
 
 
         mockMvc.perform(MockMvcRequestBuilders.get("/frontend/deleteNote/" + noteList.get(0).getId()))
-                .andExpect(status().isFound())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/frontend/home"));
 
-        assertEquals(proxyService.getNotes(1).size(),0);
+        assertEquals(noteService.getNotes(1).size(),0);
     }
 
 }

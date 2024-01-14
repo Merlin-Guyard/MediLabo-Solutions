@@ -63,9 +63,18 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div th:if="${noteFetchError}">
+                            <p style="color: red;" th:text="${noteFetchError}"></p>
+                        </div>
                     </div>
+
+                    <h4>Diabetes report:</h4>
+                    <p th:text="${report}"></p>
                     <div>
                         <a th:href="@{/frontend/addNotes/{patientId}(patientId=${patient.id})}" class="btn btn-primary">Add Notes</a>
+                    </div>
+                    <div th:if="${reportFetchError}">
+                        <p style="color: red;" th:text="${reportFetchError}"></p>
                     </div>
                 </div>
             </div>

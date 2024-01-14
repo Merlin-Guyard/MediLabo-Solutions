@@ -1,6 +1,6 @@
 package com.oc.medilabosolutionsfrontend.repository;
 
-import com.oc.medilabosolutionsfrontend.Model.User;
+import com.oc.medilabosolutionsfrontend.model.User;
 import org.springframework.stereotype.Repository;
 
 @Repository

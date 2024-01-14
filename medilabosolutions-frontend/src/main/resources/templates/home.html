@@ -14,7 +14,9 @@
     <div class="d-flex justify-content-center align-items-center">
         <div class="container text-center">
             <!-- Bouton "Add Patient" -->
+            <div th:if="${patientFetchError == null}">
             <a th:href="@{/frontend/addPatient}" class="btn btn-primary mb-2">Add Patient</a>
+            </div>
 
             <!-- Tableau -->
             <table class="table table-bordered">
@@ -36,6 +38,10 @@
                 </tr>
                 </tbody>
             </table>
+
+            <div th:if="${patientFetchError}">
+                <p style="color: red;" th:text="${patientFetchError}"></p>
+            </div>
         </div>
     </div>
 </div>

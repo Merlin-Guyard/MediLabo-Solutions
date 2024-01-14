@@ -1,4 +1,4 @@
-package com.oc.medilabosolutionsfrontend.Model;
+package com.oc.medilabosolutionsreport.model;
 
 public class Note {
 

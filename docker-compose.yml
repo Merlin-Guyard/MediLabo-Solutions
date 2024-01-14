@@ -60,6 +60,9 @@ services:
       - spring.cloud.gateway.routes[2].id=notes-route
       - spring.cloud.gateway.routes[2].uri=http://app-notes:8083
       - spring.cloud.gateway.routes[2].predicates[0]=Path=/notes/**
+      - spring.cloud.gateway.routes[3].id=report-route
+      - spring.cloud.gateway.routes[3].uri=http://app-report:8084
+      - spring.cloud.gateway.routes[3].predicates[0]=Path=/report/**
     ports:
       - 8080:8080
 
@@ -88,6 +91,18 @@ services:
       - spring.data.mongodb.uri=mongodb://$${MONGO_INITDB_ROOT_USERNAME:root}:$${MONGO_INITDB_ROOT_PASSWORD:root}@$${MONGO_HOST:db-mongo}:$${MONGO_PORT:27017}/history?authSource=admin
     ports:
       - 8083:8083      
+
+  app-report:
+    restart: on-failure
+    build:
+      context: ./medilabosolutions-report
+      dockerfile: Dockerfile
+    env_file: ./.env
+    image: report
+    environment:
+      - url=http://app-gateway:8080/
+    ports:
+      - 8084:8084    
 
 volumes:
   db:

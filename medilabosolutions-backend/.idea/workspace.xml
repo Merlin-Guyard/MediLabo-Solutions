@@ -5,24 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/controller/ReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Note.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/model/Properties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ProxyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tinylog.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/tinylog.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/resources/tinylog.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/resources/tinylog.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/ProxyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/view.html" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/templates/view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/NoteProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/NoteProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/NoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/NoteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -49,8 +52,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Srpint2docker",
-    "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/pom.xml",
+    "git-widget-placeholder": "feature/testFrontend",
+    "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/src/main/resources",
     "settings.editor.selected.configurable": "MavenSettings"
   }
 }]]></component>
@@ -73,13 +76,68 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="sourceFilePath" value="Dockerfile" />
-        </settings>
-      </deployment>
-      <method v="2" />
+    <configuration name="ControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.addPatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="METHOD_NAME" value="addPatientTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.deletePatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="METHOD_NAME" value="deletePatientTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.updatePatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
+      <option name="METHOD_NAME" value="updatePatientTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
@@ -90,7 +148,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MedilabosolutionsApplication" />
-        <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="JUnit.ControllerTest" />
+        <item itemvalue="JUnit.ControllerTest.addPatientTest" />
+        <item itemvalue="JUnit.ControllerTest.deletePatientTest" />
+        <item itemvalue="JUnit.ControllerTest.updatePatientTest" />
       </list>
     </recent_temporary>
   </component>

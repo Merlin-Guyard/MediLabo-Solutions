@@ -1,11 +1,11 @@
-package com.oc.medilabosolutionsfrontend.proxy;
+package com.oc.medilabosolutionsreport.dao;
 
-import com.oc.medilabosolutionsfrontend.model.Note;
-import com.oc.medilabosolutionsfrontend.Exceptions.MicroserviceDownException;
-import com.oc.medilabosolutionsfrontend.model.Properties;
+import com.oc.medilabosolutionsreport.Exceptions.MicroserviceDownException;
+import com.oc.medilabosolutionsreport.model.Note;
+import com.oc.medilabosolutionsreport.model.Properties;
+import org.pmw.tinylog.Logger;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-import static org.springframework.http.HttpMethod.DELETE;
 
 @Service
 public class NoteProxy {
@@ -27,7 +26,7 @@ public class NoteProxy {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    //Get all note from patient with id
+    //Get notes by patient's id
     public List<Note> getNotes(Integer patientId) {
         String url = properties.getUrl() + "notes/getNote/" + patientId;
 
@@ -39,37 +38,13 @@ public class NoteProxy {
                     new ParameterizedTypeReference<List<Note>>() {
                     }
             );
+
             return responseEntity.getBody();
         } catch (Exception e) {
-            throw new MicroserviceDownException("Note service is unavailable");
-        }
-    }
+            Logger.error("Failed to fetch notes for patient with id : ", patientId);
 
-    //Add a note
-    public void addNotes(Note note) {
-        String url = properties.getUrl() + "notes/addNote";
-
-        try {
-            restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(note), Void.class);
-        } catch (Exception e) {
             throw new MicroserviceDownException("Note service is unavailable");
         }
 
-    }
-
-    //Delete a note with id
-    public void deleteNoteById(String id) {
-        String url = properties.getUrl() + "notes/deleteNote/" + id;
-
-        try {
-            ResponseEntity<String> responseEntity = restTemplate.exchange(
-                    url,
-                    DELETE,
-                    null,
-                    String.class
-            );
-        } catch (Exception e) {
-            throw new MicroserviceDownException("Note service is unavailable");
-        }
     }
 }

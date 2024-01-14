@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.proxy;
 
+import com.oc.medilabosolutionsfrontend.Exceptions.MicroserviceDownException;
 import com.oc.medilabosolutionsfrontend.model.Patient;
 import com.oc.medilabosolutionsfrontend.model.Properties;
 import org.pmw.tinylog.Logger;
@@ -34,20 +35,18 @@ public class PatientProxy {
     public List<Patient> getAllPatient() {
         String url = properties.getUrl() + "backend/getPatients";
 
-        ResponseEntity<List<Patient>> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Patient>>() {
-                }
-        );
+        try {
+            ResponseEntity<List<Patient>> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<Patient>>() {
+                    }
+            );
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Patients found");
             return responseEntity.getBody();
-        } else {
-            Logger.info("Patients not found");
-            return Collections.emptyList();
+        } catch (Exception e) {
+            throw new MicroserviceDownException("Patient service is unavailable");
         }
     }
 
@@ -62,57 +61,51 @@ public class PatientProxy {
                     Patient.class
             );
 
-            Logger.info("Fetching patient success");
             return responseEntity.getBody();
-        } catch (HttpClientErrorException.NotFound notFoundException) {
-            Logger.info("Patient not found");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found with id: " + id);
+        } catch (Exception e) {
+            throw new MicroserviceDownException("Patient service is unavailable");
         }
     }
 
-    public boolean addPatient(Patient patient) {
+    public void addPatient(Patient patient) {
         String url = properties.getUrl() + "backend/addPatient";
 
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
-            return true;
         } catch (Exception e) {
-            System.out.println(e);
-            return false;
+            throw new MicroserviceDownException("Patient service is unavailable");
         }
     }
 
-    public boolean updatePatient(Integer id, Patient patient) {
+    public void updatePatient(Integer id, Patient patient) {
         String url = properties.getUrl() + "backend/updatePatient/" + id;
 
         try {
             restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(patient), Void.class);
-            return true;
         } catch (Exception e) {
-            System.out.println(e);
-            return false;
+            throw new MicroserviceDownException("Patient service is unavailable");
         }
     }
 
     public void deleteAll() {
-        ResponseEntity<String> responseEntity1 = restTemplate.exchange(
-                properties.getUrl() + "backend/deleteAll",
-                DELETE,
-                null,
-                String.class
-        );
+        String url = properties.getUrl() + "backend/deleteAll";
 
-        ResponseEntity<String> responseEntity2 = restTemplate.exchange(
-                properties.getUrl() + "notes/deleteAll",
-                DELETE,
-                null,
-                String.class
-        );
+        try {
+            ResponseEntity<String> responseEntity1 = restTemplate.exchange(
+                    url,
+                    DELETE,
+                    null,
+                    String.class
+            );
+        } catch (Exception e) {
+            throw new MicroserviceDownException("Patient service is unavailable");
+        }
     }
 
     public void deletePatientById(Integer id) {
         String url = properties.getUrl() + "backend/deletePatient/" + id;
 
+        try {
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 url,
                 DELETE,
@@ -120,10 +113,8 @@ public class PatientProxy {
                 String.class
         );
 
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            Logger.info("Patient deletion success");
-        } else {
-            Logger.info("Patient deletion failure");
+        } catch (Exception e) {
+            throw new MicroserviceDownException("Patient service is unavailable");
         }
     }
 }

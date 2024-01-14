@@ -1,5 +1,6 @@
 package com.oc.medilabosolutionsfrontend.controller;
 
+import com.oc.medilabosolutionsfrontend.Exceptions.MicroserviceDownException;
 import com.oc.medilabosolutionsfrontend.model.Note;
 import com.oc.medilabosolutionsfrontend.model.Patient;
 import com.oc.medilabosolutionsfrontend.model.User;
@@ -8,6 +9,7 @@ import com.oc.medilabosolutionsfrontend.service.NoteService;
 import com.oc.medilabosolutionsfrontend.service.PatientService;
 import com.oc.medilabosolutionsfrontend.service.ReportService;
 import jakarta.validation.Valid;
+import org.pmw.tinylog.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -60,13 +63,19 @@ public class PageController {
     //Show home page
     @GetMapping("/home")
     public String homePage(Model model) {
-        
+
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
         }
 
-        List<Patient> patients = patientService.getAllPatient();
-        model.addAttribute("patients", patients);
+        try {
+            List<Patient> patients = patientService.getAllPatient();
+            model.addAttribute("patients", patients);
+        } catch (MicroserviceDownException e) {
+            Logger.error("Error fetching notes", e);
+            model.addAttribute("patientFetchError", e.getErrorMessage());
+            model.addAttribute("patient", Collections.emptyList());
+        }
 
         return "home";
     }
@@ -82,11 +91,23 @@ public class PageController {
         Patient patient = patientService.getPatient(id);
         model.addAttribute("patient", patient);
 
-        List<Note> notes = noteService.getNotes(patient.getId());
-        model.addAttribute("notes", notes);
+        try {
+            List<Note> notes = noteService.getNotes(patient.getId());
+            model.addAttribute("notes", notes);
+        } catch (MicroserviceDownException e) {
+            Logger.error("Error fetching notes", e);
+            model.addAttribute("noteFetchError", e.getErrorMessage());
+            model.addAttribute("notes", Collections.emptyList());
+        }
 
-        String report = reportService.getReport(patient.getId());
-        model.addAttribute("report", report);
+        try {
+            String report = reportService.getReport(patient.getId());
+            model.addAttribute("report", report);
+        } catch (MicroserviceDownException e) {
+            Logger.error("Error fetching Report", e);
+            model.addAttribute("reportFetchError", e.getErrorMessage());
+            model.addAttribute("report", "");
+        }
 
         return "view";
     }
@@ -110,7 +131,6 @@ public class PageController {
 
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
-
         }
 
         return "add";
@@ -124,7 +144,7 @@ public class PageController {
             return "redirect:/frontend/login";
         }
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "add";
         }
 
@@ -207,7 +227,6 @@ public class PageController {
 
         return "redirect:/frontend/view/" + patientId;
     }
-
 
 
     //Send Delete request (testing with Postman only)

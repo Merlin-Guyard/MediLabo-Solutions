@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/test/java/com/oc/medilabosolutionsreport/TU/FileTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/test/java/com/oc/medilabosolutionsreport/TU/ServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/tinylog.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/resources/tinylog.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/resources/tinylog.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/resources/tinylog.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/test/java/com/oc/medilabosolutionnotes/TI/MedilabosolutionNotesApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/test/java/com/oc/medilabosolutionnotes/TI/MedilabosolutionNotesApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/test/java/com/oc/medilabosolutionsreport/MedilabosolutionsReportApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/controller/PageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/NoteProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/NoteProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/NoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/service/NoteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/test/java/com/oc/medilabosolutionsfrontend/TI/PageControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,8 +52,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/testReport",
-    "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/pom.xml",
+    "git-widget-placeholder": "feature/testFrontend",
+    "last_opened_file_path": "F:/Programmation/OC/P9_medilabo_solutions/Medilabo-Solutions/medilabosolutions-backend/src/main/resources",
     "settings.editor.selected.configurable": "MavenSettings"
   }
 }]]></component>
@@ -58,7 +62,20 @@
       <recent name="F:\Programmation\OC\P9_medilabo_solutions\Medilabo-Solutions\medilabosolutions-backend" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ControllerTest">
+  <component name="RunManager" selected="Application.MedilabosolutionsApplication">
+    <configuration name="MedilabosolutionsApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.MedilabosolutionsApplication" />
+      <module name="medilabosolutions-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.medilabosolutionsbackend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="medilabosolutions-backend" />
       <extension name="coverage">
@@ -106,22 +123,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ControllerTest.getPatientByIdTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="medilabosolutions-backend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.medilabosolutionsbackend.TI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.medilabosolutionsbackend.TI" />
-      <option name="MAIN_CLASS_NAME" value="com.medilabosolutionsbackend.TI.ControllerTest" />
-      <option name="METHOD_NAME" value="getPatientByIdTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ControllerTest.updatePatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="medilabosolutions-backend" />
       <extension name="coverage">
@@ -146,11 +147,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MedilabosolutionsApplication" />
         <item itemvalue="JUnit.ControllerTest" />
         <item itemvalue="JUnit.ControllerTest.addPatientTest" />
         <item itemvalue="JUnit.ControllerTest.deletePatientTest" />
         <item itemvalue="JUnit.ControllerTest.updatePatientTest" />
-        <item itemvalue="JUnit.ControllerTest.getPatientByIdTest" />
       </list>
     </recent_temporary>
   </component>

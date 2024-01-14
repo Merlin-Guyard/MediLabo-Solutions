@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class MedilabosolutionNotesApplicationTests {
+class ControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

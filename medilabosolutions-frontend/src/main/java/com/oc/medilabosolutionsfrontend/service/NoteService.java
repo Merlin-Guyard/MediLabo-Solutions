@@ -26,4 +26,8 @@ public class NoteService {
     public void deleteNoteById(String id) {
         noteProxy.deleteNoteById(id);
     }
+
+    public void deleteAll() {
+        noteProxy.deleteAll();
+    }
 }

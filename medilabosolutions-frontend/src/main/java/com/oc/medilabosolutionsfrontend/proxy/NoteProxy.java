@@ -72,4 +72,19 @@ public class NoteProxy {
             throw new MicroserviceDownException("Note service is unavailable");
         }
     }
+
+    public void deleteAll() {
+        String url = properties.getUrl() + "notes/deleteAll";
+
+        try {
+            ResponseEntity<String> responseEntity1 = restTemplate.exchange(
+                    url,
+                    DELETE,
+                    null,
+                    String.class
+            );
+        } catch (Exception e) {
+            throw new MicroserviceDownException("Note service is unavailable");
+        }
+    }
 }

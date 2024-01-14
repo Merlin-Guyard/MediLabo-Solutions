@@ -10,8 +10,6 @@ import com.oc.medilabosolutionsfrontend.service.PatientService;
 import com.oc.medilabosolutionsfrontend.service.ReportService;
 import jakarta.validation.Valid;
 import org.pmw.tinylog.Logger;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,6 +42,8 @@ public class PageController {
     @GetMapping("/login")
     public String loginPage(Model model) {
 
+        Logger.info("Showing login page");
+
         model.addAttribute("user", new User());
 
         return "login";
@@ -52,6 +52,8 @@ public class PageController {
     //Send login request
     @PostMapping("/connect")
     public String connect(@ModelAttribute User user) {
+
+        Logger.info("Login an user");
 
         if (!gatewayService.login(user)) {
             return "redirect:/frontend/login";
@@ -63,6 +65,8 @@ public class PageController {
     //Show home page
     @GetMapping("/home")
     public String homePage(Model model) {
+
+        Logger.info("Showing home page");
 
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
@@ -83,6 +87,8 @@ public class PageController {
     //Show view page
     @GetMapping("/view/{id}")
     public String viewPatientPage(@PathVariable("id") Integer id, Model model) {
+
+        Logger.info("Showing view page");
 
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
@@ -116,6 +122,8 @@ public class PageController {
     @GetMapping("/deletePatient/{id}")
     public String deletePatient(@PathVariable("id") Integer id, Model model) {
 
+        Logger.info("Deleting user with id : ", id);
+
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
         }
@@ -140,6 +148,8 @@ public class PageController {
     @PostMapping("/addPatient")
     public String addPatient(@Valid Patient patient, BindingResult bindingResult, Model model) {
 
+        Logger.info("Adding a patient");
+
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
         }
@@ -158,6 +168,8 @@ public class PageController {
     @GetMapping("/deleteNote/{id}")
     public String deleteNote(@PathVariable("id") String id, Model model) {
 
+        Logger.info("Deleting note with id : ", id);
+
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
         }
@@ -170,6 +182,8 @@ public class PageController {
     //Show Update page
     @GetMapping("/updatePatient/{id}")
     public String updatePatientPage(@PathVariable("id") Integer id, Model model) {
+
+        Logger.info("Showing update page");
 
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
@@ -185,6 +199,8 @@ public class PageController {
     @PostMapping("/updatePatient/{id}")
     public String updatePatient(@PathVariable("id") Integer id, Patient patient, Model model) {
 
+        Logger.info("Updating patient with id : ", id);
+
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
         }
@@ -197,6 +213,8 @@ public class PageController {
     //Show note page
     @GetMapping("/addNotes/{id}")
     public String addNotesPage(@PathVariable("id") Integer id, Model model) {
+
+        Logger.info("Showing add page");
 
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
@@ -216,6 +234,8 @@ public class PageController {
     //Send note addition request
     @PostMapping("/addNotes/{patientId}")
     public String addNotes(@PathVariable("patientId") Integer patientId, @ModelAttribute("note") Note note, Model model) {
+
+        Logger.info("Adding a note for patient with id : ", patientId);
 
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";

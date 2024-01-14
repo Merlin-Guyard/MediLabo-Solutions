@@ -16,6 +16,7 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+    //Generate a report request
     @RequestMapping("/getReport/{patientId}")
     public ResponseEntity<String> getReport(@PathVariable int patientId) {
         return ResponseEntity.ok(reportService.makeReport(patientId));

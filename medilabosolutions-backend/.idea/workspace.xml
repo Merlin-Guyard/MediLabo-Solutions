@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcc20f38-b3fb-41d3-8ada-971cff5ec653" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/Exceptions/ReportCommunicationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/Exceptions/FetchingKeywordsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/dao/KeywordFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/resources/keywords.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/Exceptions/MicroserviceDownException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/dao/NoteProxy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/dao/PatientProxy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/model/NotesFetchException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/Exceptions/NoteCommunicationException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/NoteProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/NoteProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/ReportProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-frontend/src/main/java/com/oc/medilabosolutionsfrontend/proxy/ReportProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/java/com/oc/medilabosolutionnotes/model/Note.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-notes/src/main/java/com/oc/medilabosolutionnotes/model/Note.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/dao/KeywordFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/dao/KeywordFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ProxyService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../medilabosolutions-report/src/main/java/com/oc/medilabosolutionsreport/service/ReportService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -7,7 +7,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,6 +18,7 @@ public class KeywordFile {
         this.resourceLoader = resourceLoader;
     }
 
+    //Read json file
     public List<String> getKeywords() {
         try {
             Resource resource = resourceLoader.getResource("classpath:keywords.json");

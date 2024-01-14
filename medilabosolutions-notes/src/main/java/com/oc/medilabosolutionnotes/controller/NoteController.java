@@ -30,15 +30,6 @@ public class NoteController {
         return ResponseEntity.ok("Application online !");
     }
 
-    //Add a note
-    @RequestMapping("/addNote")
-    public void addNote(@RequestBody Note note) {
-
-        Logger.info("Adding note");
-
-        noteService.addNote(note);
-    }
-
     //Get all notes from a patient with its id
     @RequestMapping("/getNote/{patientId}")
     public ResponseEntity<List<Note>> getNote(@PathVariable String patientId) {
@@ -48,6 +39,15 @@ public class NoteController {
         List<Note> notes = noteService.getNotes(patientId);
 
         return ResponseEntity.ok(notes);
+    }
+
+    //Add a note
+    @RequestMapping("/addNote")
+    public void addNote(@RequestBody Note note) {
+
+        Logger.info("Adding note");
+
+        noteService.addNote(note);
     }
 
     //Delete note by id

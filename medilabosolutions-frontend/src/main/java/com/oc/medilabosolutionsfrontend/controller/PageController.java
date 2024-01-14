@@ -68,8 +68,14 @@ public class PageController {
             return "redirect:/frontend/login";
         }
 
-        List<Patient> patients = patientService.getAllPatient();
-        model.addAttribute("patients", patients);
+        try {
+            List<Patient> patients = patientService.getAllPatient();
+            model.addAttribute("patients", patients);
+        } catch (MicroserviceDownException e) {
+            Logger.error("Error fetching notes", e);
+            model.addAttribute("patientFetchError", e.getErrorMessage());
+            model.addAttribute("patient", Collections.emptyList());
+        }
 
         return "home";
     }
@@ -125,7 +131,6 @@ public class PageController {
 
         if (!gatewayService.verify()) {
             return "redirect:/frontend/login";
-
         }
 
         return "add";
